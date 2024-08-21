@@ -1,0 +1,349 @@
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  202) version = "0.8.4"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  204) checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  475)  "core-foundation-sys 0.8.4",
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  508) [[package]]
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  509) name = "io-kit-sys"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  510) version = "0.3.0"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  511) source = "registry+https://github.com/rust-lang/crates.io-index"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  512) checksum = "9b2d4429acc1deff0fbdece0325b4997bdb02b2c245ab7023fd5deca0f6348de"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  513) dependencies = [
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  514)  "core-foundation-sys 0.8.4",
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  515)  "mach2",
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  516) ]
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  517) 
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  595) [[package]]
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  596) name = "mach2"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  597) version = "0.4.1"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  598) source = "registry+https://github.com/rust-lang/crates.io-index"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  599) checksum = "6d0d1830bcd151a6fc4aea1369af235b36c1528fe976b8ff678683c9995eade8"
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  600) dependencies = [
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  601)  "libc",
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  602) ]
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  603) 
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400  955)  "core-foundation-sys 0.8.4",
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400 1242)  "core-foundation-sys 0.8.4",
+4e2504075 watchtower-sensor/Cargo.lock (jtcurlin          2023-04-07 16:27:18 -0400 1243)  "io-kit-sys",
+4e2504075 watchtower-sensor/Cargo.toml (jtcurlin       2023-04-07 16:27:18 -0400 47) core-foundation-sys = "0.8.4"
+92ee71eae watchtower-sensor/Cargo.toml (jtcurlin       2023-04-13 23:39:24 -0400 48) io-kit-sys = "0.3.0"
+92ee71eae watchtower-sensor/Cargo.toml (jtcurlin       2023-04-13 23:39:24 -0400 49) sysctl = "0.4.0"
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400  6) #[cfg(not(target_os = "macos"))]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 21) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 22) #[cfg(target_os = "macos")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 23) #[derive(Debug, Error)]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 24) pub enum Error{
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 25)     #[error("IOServiceMatching failed, {0}")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 26)     KitError(String),
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 27) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 28)     #[error("Battery Error")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 29)     BatteryError(#[from] battery::Error),
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 30) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 31)     #[error("uuid error")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 32)     Uuid(#[from] uuid::Error),
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 33) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 34)     #[error("No battery found")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 35)     NoBattery,
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 36) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 37)     #[error("CPU info not found")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 38)     CpuInfoNotFound,
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 39) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 40)     #[error("CPU clock speed error")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 41)     ClockSpeedError,
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 42) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 43)     // handle .output errors
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 44)     #[error("Command output error")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 45)     CommandOutputError(#[from] std::io::Error),
+92ee71eae watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 23:39:24 -0400 46)     
+92ee71eae watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 23:39:24 -0400 47)     #[error("Error in powermetrics call")]
+92ee71eae watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 23:39:24 -0400 48)     PowerMetricsError,
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 49) 
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 50)     // #[error("No GPU found")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 51)     // NoGpuFound,
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin  2023-04-13 20:42:08 -0400 52) }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400   1) // darwin.rs
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400   2) // author: Jacob Curlin
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400   3) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400   5) use battery::Manager;
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400   6) use core_foundation_sys::base::{kCFAllocatorDefault, CFRelease};
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400   7) use core_foundation_sys::string::{
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400   8)     kCFStringEncodingUTF8, CFStringCreateWithCString, CFStringGetCStringPtr,
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400   9) };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  10) use io_kit_sys::{
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  11)     kIOMasterPortDefault, IOIteratorNext, IOObjectRelease, IORegistryEntryCreateCFProperty,
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  12)     IOServiceGetMatchingServices, IOServiceMatching,
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  13) };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  14) use libc::{mach_port_t, KERN_SUCCESS};
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  15) use std::{
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  16)     collections::HashMap,
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  17)     ffi::{CStr, CString},
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  18) };
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  19) use sysinfo::{CpuExt, MacAddr, NetworkExt, System, SystemExt, ComponentExt};
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  26) pub(crate) type SensorError = crate::error::Error; 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  28) // sensors
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  29) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  30) // MACHINE_ID
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  31) pub(crate) fn machine_id() -> crate::Result<Uuid> {
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  32)     let service_name = CString::new("IOPlatformExpertDevice").unwrap();
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  33)     let service = unsafe { IOServiceMatching(service_name.as_ptr()) };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  34)     if service.is_null() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  35)         return Err(SensorError::KitError("IO Kit: IOServiceMatching call failed".to_string()));
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  36)     }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  38)     let mut matched_services: mach_port_t = 0;
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  39)     let result = unsafe {
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  40)         IOServiceGetMatchingServices(kIOMasterPortDefault, service, &mut matched_services)
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  41)     };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  42)     if result != KERN_SUCCESS {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  43)         return Err(SensorError::KitError("IO Kit: IOServiceGetMatchingServices call failed".to_string()));
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  44)     }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  45)     
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  46) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  47)     let platform_expert: mach_port_t = unsafe { IOIteratorNext(matched_services) };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  48)     if platform_expert == 0 {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  49)         return Err(SensorError::KitError("IO Kit: IOIteratorNext call failed".to_string()));
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  50)     }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  51) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  52)     let uuid_key_name = CString::new("IOPlatformUUID").unwrap();
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  53)     let uuid_key = unsafe {
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  54)         CFStringCreateWithCString(
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  55)             std::ptr::null(),
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  56)             uuid_key_name.as_ptr(),
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  57)             kCFStringEncodingUTF8,
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  58)         )
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  59)     };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  60)     let uuid_ref = unsafe {
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  61)         IORegistryEntryCreateCFProperty(platform_expert, uuid_key, kCFAllocatorDefault, 0)
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  62)     };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  63)     if uuid_ref.is_null() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  64)         return Err(SensorError::KitError("IO Kit: IORegistryEntryCreateCFProperty call failed".to_string()));
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  65)     }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  66) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  67)     let uuid_cstr =
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  68)         unsafe { CStr::from_ptr(CFStringGetCStringPtr(uuid_ref as _, kCFStringEncodingUTF8)) };
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  69)     let uuid_string = uuid_cstr.to_str();
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  70)     let uuid = Uuid::parse_str(uuid_string.unwrap());
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  71) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  72)     unsafe {
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  73)         IOObjectRelease(platform_expert);
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  74)         CFRelease(uuid_ref);
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  75)     }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  76) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400  77)     Ok(uuid?)
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  81) pub(crate) fn has_battery() -> Result<bool, SensorError> {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  82)     let manager = Manager::new().map_err(SensorError::BatteryError)?;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  83)     let batteries = manager.batteries().map_err(SensorError::BatteryError)?;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  95) pub(crate) fn battery_percent() -> Result<u8, SensorError> {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  96)     let manager = Manager::new().map_err(SensorError::BatteryError)?;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400  97)     let batteries = manager.batteries().map_err(SensorError::BatteryError)?;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 106)     Err(SensorError::NoBattery)
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 124) // CPU_NAME
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 125) pub(crate) fn cpu_name() -> crate::Result<String> {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 126)     let mut system = System::new();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 127)     system.refresh_cpu();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 128) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 129)     let cpu_info = system
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 130)         .cpus()
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 131)         .first()
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 132)         .ok_or(SensorError::CpuInfoNotFound)?;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 133) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 134)     Ok(cpu_info.brand().to_owned())
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 135) }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 136) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 137) // CPU_CLOCK_SPEED
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 138) pub(crate) fn cpu_clock_speed() -> crate::Result<u32> {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 139)    Ok(0)  
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 140)     
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 141)     // todo: static clock speed
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 142) }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 143) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 144) // CPU_CURRENT_CLOCK_SPEED
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 145) pub(crate) fn cpu_current_clock_speed() -> crate::Result<u32> {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 146)     let (first_frequency, _) = get_m1_frequencies()?;
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 147)     Ok(first_frequency.unwrap())
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 148) }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 149) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 150) // CPU_CURRENT_TEMPERATURE
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 151) pub(crate) fn cpu_current_temperature() -> crate::Result<Option<f32>> {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 152)     get_m1_package_temperature()
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 153) }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 154) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 155) // INSTALLED_RAM
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 161) // RAM_USAGE
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 167) // NETWORK_STATISTICS
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 178)     for (_interface_name, network_data) in system.networks() {
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 180)         let MacAddr(mac_address_bytes) = network_data.mac_address();
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 230)         /*
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 254) // GPU_INFO
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 256)     Ok(GpuHello {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 257)         name: "".to_string(),
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 258)         installed_vram: 0,
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 259)         max_frequency: None,
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 260)     })
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 261)     // GpuHello : name (string) , installed_vram(u64)
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 264) // GPU_STATISTICS
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 266)     let (first_frequency, _) = get_m1_frequencies()?;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 267)     Ok(Gpu {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 268)         current_frequency: first_frequency,
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 269)         current_vram_usage: 0,
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 270)         current_temperature: get_m1_package_temperature().unwrap_or(None),
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 271)     })
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 272)     // calculate VRAM usage for m1 macs
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 275) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 276) // [private darwin-specific functions]
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 277) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 278) // get apple-silicon platform package temperature
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 279) fn get_m1_package_temperature() -> crate::Result<Option<f32>> {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 280)     let mut system = System::new();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 281)     system.refresh_components_list();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 282) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 283)     let mut sum = 0.0;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 284)     let mut count = 0;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 285)     let components = system.components();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 286)     
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 287)     // loop through all components of format "PMU tdie" and compute / return the average temp value
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 288)     // ( "PMU tdie" refers to CPU die temps on ARM macs ) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 289)     // see: https://github.com/exelban/stats/blob/6b36d3e9773d3fa2c3fd3c6047227a55d16ea5e8/Modules/Sensors/values.swift#L101-L176
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 290)     for component in components {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 291)         if component.label().contains("PMU tdie") {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 292)             println!("Component: {} - {}", component.label(), component.temperature());
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 293)             sum += component.temperature();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 294)             count += 1;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 295)         }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 296)     } 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 297)     
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 298)     if count == 0 {             // if count is 0, (no matching compnents found) return None
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 299)         return Ok(None);
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 300)     }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 301) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 302)     let avg = sum / count as f32;
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 303)     
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 304)     // return the average temperature
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 305)     Ok(Some(avg))
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 306) }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 307) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 308) // this is a mess but it works. pending cleanup/refactor
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 309) // the only way to get the current frequency of the M1 macs at this time is to shell-out to powermetrics, which is closed source
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 310) // there is a guy on github who has reverse engineered the powermetrics binary for real-time frequency readings without shell-out, may attempt to implement this in the future
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 311) // requires elevation currently
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 312) fn get_m1_frequencies() -> crate::Result<(Option<u32>, Option<u32>)> {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 313)     use std::process::{Command, Stdio};
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 314)     use std::io::{BufRead, BufReader};
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 315) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 316)     let powermetrics = Command::new("sudo")
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 317)         .arg("powermetrics")
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 318)         .arg("--samplers")
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 319)         .arg("gpu_power,cpu_power")
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 320)         .arg("-i1")
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 321)         .arg("-n1")
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 322)         .stdout(Stdio::piped())
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 323)         .spawn()
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 324)         .expect("Failed to run powermetrics");
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 325) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 326)     let output = BufReader::new(powermetrics.stdout.expect("Failed to read stdout"));
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 327) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 328)     let mut cpu_frequency = None;
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 329)     let mut gpu_active_frequency = None;
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 330) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 331)     for line in output.lines() {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 332)         let line = line.expect("Failed to read output line");
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 333) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 334)         println!("{}", line);
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 335) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 336)         if line.contains("E-Cluster HW active frequency") {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 337)             let words: Vec<&str> = line.split_whitespace().collect();
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 338)             cpu_frequency = words
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 339)                 .iter()
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 340)                 .position(|&word| word.contains("MHz"))
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 341)                 .and_then(|pos| pos.checked_sub(1))
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 342)                 .and_then(|pos| words.get(pos))
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 343)                 .and_then(|word| word.parse::<u32>().ok());
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 344)         } else if line.contains("GPU active frequency") {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 345)             let words: Vec<&str> = line.split_whitespace().collect();
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 346)             gpu_active_frequency = words
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 347)                 .iter()
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 348)                 .position(|&word| word.contains("MHz"))
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 349)                 .and_then(|pos| pos.checked_sub(1))
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 350)                 .and_then(|pos| words.get(pos))
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 351)                 .and_then(|word| word.parse::<u32>().ok());
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 352)         }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 353) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 354)         if cpu_frequency.is_some() && gpu_active_frequency.is_some() {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 355)             break;
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 356)         }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 357)     }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 358) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 359)     match (cpu_frequency, gpu_active_frequency) {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 360)         (Some(cpu_freq), Some(gpu_freq)) => {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 361)             Ok((Some(cpu_freq as u32), Some(gpu_freq as u32))) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 362)             // println!("CPU frequency: {} MHz", cpu_freq);
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 363)             // println!("GPU frequency: {} MHz", gpu_freq);
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 364)         }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 365)         _ => {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 366)             return Err(SensorError::PowerMetricsError);
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 367)         }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 368)     }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 369) }
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 370) 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 371) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 372) // (temp) tests
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 377)     // MACHINE_ID
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 404)     
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 405)     // CPU_NAME
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 406)     #[test]
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 407)     fn test_cpu_name() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 408)         let cpu_name = cpu_name().unwrap();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 409)         println!("\n(darwin) CPU_NAME: {}", cpu_name);
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 410)     }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 411) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 412)     // CPU_CLOCK_SPEED
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 413)     #[test]
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 414)     fn test_cpu_clock_speed() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 415)         let cpu_clock_speed = cpu_clock_speed().unwrap();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 416)         println!("\n(darwin) CPU_CLOCK_SPEED [MHz]: {}", cpu_clock_speed);
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 417)     }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 418) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 419)     // CPU_CURRENT_CLOCK_SPEED
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 420)     #[test]
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 421)     fn test_cpu_current_clock_speed() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 422)         let cpu_current_clock_speed = cpu_current_clock_speed().unwrap();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 423)         println!(
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 424)             "\n(darwin) CPU_CURRENT_CLOCK_SPEED [MHz]: {}",
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 425)             cpu_current_clock_speed
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 426)         );
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 427)     }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 429)     // CPU_CURRENT_TEMPERATURE
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 430)     #[test]
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 431)     fn test_cpu_current_temperature() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 432)         let cpu_current_temperature = cpu_current_temperature().unwrap().unwrap();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 433)         println!("\n(darwin) CPU_CURRENT_TEMPERATURE [C]: {}", cpu_current_temperature);
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 434)     }
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 435)     
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 436) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 437)     /*  INSTALLED_RAM
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 443)     */
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 449)         println!(
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 450)             "\n(darwin) RAM_USAGE [bytes]: {}   [MB]: {} ;   [GB]: {}",
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 451)             ram_usage,
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 452)             ram_usage / 1024 / 1024,
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 453)             ram_usage / 1024 / 1024 / 1024
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 454)         );
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 473) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 474)     // test for gpu_info
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 475) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 477)     #[test]
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 478)     fn test_gpu_info() {
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 479)         let gpu_info = gpu_info().unwrap();
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 480)         println!("\n(darwin) GPU_INFO: {:#?}", gpu_info);
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 481)     } 
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 482)     
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 483)     // GPU_STATISTICS
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 484)     #[test]
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 485)     fn test_gpu_statistics() {
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 486)         let gpu_statistics = gpu_statistics().unwrap();
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 487)         println!("\n(darwin) GPU_STATISTICS: {:#?}", gpu_statistics);
+92ee71eae watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 23:39:24 -0400 488)     }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 489) 
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 490) }
+4e2504075 watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-07 16:27:18 -0400 491) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 492) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 493) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 494) 
+913dfe8ad watchtower-sensor/src/sys/darwin.rs (jtcurlin  2023-04-13 20:42:08 -0400 495) 

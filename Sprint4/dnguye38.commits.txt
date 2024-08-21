@@ -1,0 +1,104 @@
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   1) <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   2)     include 'connectall.php';
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   3) ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   4)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   5) <DOCTYPE! html>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   6)     <html>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   7)         <head>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   8)             <title>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400   9)                 DATA
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  10)             </title>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  12)             <meta name = "viewport" content ="width=device-width, initial - scale =1">
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  13)             <link rel="stylesheet" href="styles.css">
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  16)         </head>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  17)         <body>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  18)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  21)                 <section class = "header">
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  22)                     <nav>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  23)                         <div class="nav-links">
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  25)                         </div>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  26)                     </nav>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  27)                 </section>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  29)             </h2>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  30)             <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  31)                 date_default_timezone_set("America/New_York");
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  36)             ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  38)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  61)                   ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  71)                 <ul>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  72)                     <li>System: <?php echo $machine_rows["os_type"]?></li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  73)                     <li>Version: <?php echo $machine_rows["edition"].'--'.$machine_rows["version_semantic"].'--'.$machine_rows["bitness"]  ?> </li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  74)                     <li>Timestamp: <?php echo $machine_rows["timestamp"]?></li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  75)                     <li>CPU : <?php echo $machine_rows["cpu_core_count"].'-core, '.$machine_rows["cpu_thread_count"].'thread'?></li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  76)                     <li>RAM: <?php $totalram = $machine_rows["ram_installed"]; echo ($machine_rows["ram_installed"]/1024/1024/1024).' GB' ?></li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  77)                     <?php $GPU_name =  $machine_rows["gpu"]; ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  78)                     <li>GPU: <?php echo $machine_rows["gpu"] ?></li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  80)                     <li>Battery installed:  <?php if ($machine_rows['has_battery'] === "True") echo "Yes (Mobile device)"; else echo "No (Desktop)"; ?></li>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  81)                 </ul>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  82)             </nav>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  86)              <!--First part https://www.youtube.com/watch?v=3GsKEtBcGTk -->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  90)             <!--Label and table of data -->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  93)                 <tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400  94)                     <!--Label-->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 100)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 101)                 </tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 102)                 <tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 103)                     <!--Data to put in -->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 106)                     <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 107)                         $cpu_result=($conn ->query("SELECT * FROM `cpu`.`$ID`"));
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 108)                         mysqli_data_seek($cpu_result, $cpu_result->num_rows - 1);
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 109)                         $cpu_row = $cpu_result->fetch_assoc();
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 110)                     ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 115)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 116)                 </tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 117)             </table>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 118)             <!--Div that will hold the pie chart-->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 119)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 121)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 122)            <!--Label and table of data -->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 126)                <tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 127)                    <!--Label-->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 132)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 133)                </tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 134)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 135)                <tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 136)                    <!--Data to put in -->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 138)                    <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 139)                         $ram_results=($conn ->query("SELECT * FROM `ram`.`$ID`"));
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 140)                         mysqli_data_seek($ram_results, $ram_results->num_rows - 1);
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 141)                         $ram_row = $ram_results->fetch_assoc();
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 142)                     ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 146)                </tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 147)             </table>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 148)             <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 149)                 $GPU_result=($conn ->query("SELECT * FROM `gpu`.`$ID`"));
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 150)                 mysqli_data_seek($GPU_result, $GPU_result->num_rows - 1);
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 151)                 $GPU_row=$GPU_result->fetch_assoc();
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 153)             ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 157)                    <!--Label-->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 163)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 165)                    <!--Data to put in -->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 169)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 181)             ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 184)                <tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 185)                    <!--Label-->
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 192)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 193)                </tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 210)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 213)             </table>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 215)             <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 221)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 226)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 229)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 236)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 237)             ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 241)                <tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 251)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 252)                </tr>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 253)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 254)                 <?php
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 267)
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 268)                 ?>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 271)             <br>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 275)         </body>
+aebceac6b (ductrong5x5 2023-04-13 23:13:12 -0400 276)     </html>

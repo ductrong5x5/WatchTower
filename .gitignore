@@ -1,0 +1,5 @@
+target/
+node_modules
+
+watchtower-sensor/installer/windows/Output
+watchtower-sensor/installer/windows/*.exe

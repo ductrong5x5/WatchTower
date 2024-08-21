@@ -1,0 +1,100 @@
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 115) pub(crate) fn cpu_name() -> crate::Result<String> {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 116)     let mut file = File::open("/proc/cpuinfo")?;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 117)     let mut contents = String::new();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 118)     let mut name = "";
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 119)     let mut found = false;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 120) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 121)     file.read_to_string(&mut contents)?;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 122) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 123)     for line in contents.lines() {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 124)         if line.contains("model name") {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 125)             
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 126)             let v: Vec<&str> = line.split(' ').collect();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 127)             for v in v.iter() {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 128)                 if found == true || v.contains(":") {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 129)                     found = true;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 130)                     name = name + v + " ";
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 131)                 }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 132)                 break;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 133)             }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 134)         }   
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 135)     }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 136)     Ok(name)
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 137) }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 138) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 139) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 140) pub(crate) fn cpu_clock_speed() -> crate::Result<u32> {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 141)     let mut sys = System::new();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 142)     let mut count = 0;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 143)     let mut clock = 0;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 144) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 145)     sys.refresh_cpu();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 146)     for cpu in sys.cpus() {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 147)         clock = cpu.cpu_clock_speed();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 148)         count = count +1;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 149)     }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 150) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 151)     clock = clock / count;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 152) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 153)     Ok(clock as u32)
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 154) }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 155) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 156) pub(crate) fn cpu_current_clock_speed() -> crate::Result<u32> {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 157)     let mut sys = System::new();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 158)     let mut count = 0;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 159)     let mut clock = 0;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 160) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 161)     sys.refresh_cpu();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 162)     for cpu in sys.cpus() {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 163)         clock = cpu.cpu_usage();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 164)         count = count +1;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 165)     }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 166) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 167)     clock = clock / count;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 168) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 169)     Ok(clock as u32)
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 170) }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 171) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 172) //gets average temp of all thermal zones
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 173) pub(crate) fn cpu_current_temperature() -> crate::Result<Option<f32>> {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 174)     let mut file = File::open("/sys/class/thermal/thermal_zone*/temp")?;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 175)     let mut contents = String::new();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 176)     let mut counter = 0;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 177)     let mut temp = 0;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 178) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 179) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 180)     file.read_to_string(&mut contents)?;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 181) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 182)     for line in contents.lines() {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 183)         counter = counter + 1;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 184)         temp = temp + line.parse::<f32>().unwrap();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 185)     }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 186) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 187)     temp = temp / counter;
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 188) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 189) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 190)     //returns as Celsius
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 191)     Ok(temp /300 as f32)
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 192) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 193) }
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 194) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 195) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 288)     let mut system = System::new_all();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 289)     system.refresh_networks();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 290) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 291)     for (interface_name, network_data) in system.networks() {
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 292)         let name = interface_name.to_string();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 293) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 294)         let MacAddr(mac_address_bytes) = network_data.mac_address();
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 295)         let mac_address = format!(
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 296)             "{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 297)             mac_address_bytes[0],
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 298)             mac_address_bytes[1],
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 299)             mac_address_bytes[2],
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 300)             mac_address_bytes[3],
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 301)             mac_address_bytes[4],
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 302)             mac_address_bytes[5]
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 303)         );
+c9a6a256a watchtower-sensor/src/sys/linux.rs (CTucker01      2023-03-30 06:10:55 -0400 304) 
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 305)         let r#type = InterfaceType::WiFi; //will implement diff types at a later time
+7ea878828 watchtower-sensor/src/sys/linux.rs (CTucker01      2023-04-13 20:52:53 -0400 306)         let description = name.clone();

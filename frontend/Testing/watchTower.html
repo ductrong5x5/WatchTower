@@ -1,0 +1,112 @@
+<DOCTYPE! html>
+    <html>
+        <head>
+            <title>
+                Watchtower
+            </title>
+            <link rel="stylesheet" href="styles.css">
+            <script src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load("current", {packages:["corechart"]});
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                    ["Proccesses", "Second", { role: "style" } ],
+                    ["i7-700k", 198765, "#b87333"],
+                    ["AMD-9000", 73891, "silver"],
+                    ["Made-Up Proccessor", 999999, "gold"],
+                  ]);
+            
+                  var view = new google.visualization.DataView(data);
+                  view.setColumns([0, 1,
+                                   { calc: "stringify",
+                                     sourceColumn: 1,
+                                     type: "string",
+                                     role: "annotation" },
+                                   2]);
+            
+                  var options = {
+                    title: "Proccess Per Second",
+                    width: 600,
+                    height: 300,
+                    bar: {groupWidth: "95%"},
+                    legend: { position: "none" },
+                    backgroundColor: {fill: "white"},
+                  };
+                  var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+                  chart.draw(view, options);
+              }
+              </script>
+            <script>
+                var team_pics = [
+                    './ryan_clayton.jpg',
+                    './nerds.jpg',
+                    'paul.jpg',
+                    'clayton2.jpg'
+                ]
+                var image = 0;
+                function next() {
+                    var slide = document.getElementById("slide");
+                    image++;
+                    if(image >= team_pics.length)
+                    {
+                        image = 0;
+                    }
+                    slide.src = team_pics[image];
+                }
+                function prev() {
+                    var slide = document.getElementById("slide");
+                    image--;
+                    if(image < 0)
+                    {
+                        image = team_pics.length - 1;
+                    }
+                    slide.src = team_pics[image];
+
+                }
+
+            </script>
+        </head>
+        <body>
+            <img src="coolLogo.png"  class = "center" alt="logo">
+            <h2>
+                Watchtower will be a suite of software that enables administrators to
+                monitor Linux and Windows system health on a network. The suite will consist
+                of a sensor that collects information from connected machines, a backend that stores
+                collected information, and one or more user interfaces that allows users to view collected
+                information.
+
+            </h2>
+            <hr>
+            <h2> 
+                Features
+            </h2>
+            <nav class="nav main-nav">
+                <ul>
+                    <li>Monitor Systems</li>
+                    <li>Agregating Said Data</li>
+                    <li>Works as my first web development before I move this all to React!</li>
+                </ul>
+            </nav>
+            <div>
+            
+            </div>
+            <hr>
+            <div class = "center">
+                <h2> About US </h2>
+                <button onclick="prev()"> Prev </button>
+                <img  id = "slide" src = "./ryan_clayton.jpg" width= "55%">
+                <button class = "leftButton" onclick="next()"> Next </button>
+                <div>
+                    <button onclick="window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley';" class = "center">
+                        Link to our Git Hub!
+                    </button>
+                </div>
+            </div>
+            <div>
+                <h3> We are a group of computer science majors at UTK trying to survive CS340! In our group we have 2 Claytons, a Duc, Sam, Paul, and Ryan</h3>
+            </div>
+            <hr>
+            <div id="barchart_values" style="width: 600px; height: 300px;"></div>
+        </body>
+    </html>

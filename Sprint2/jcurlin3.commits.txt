@@ -1,0 +1,378 @@
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 38) 
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 39) [target.'cfg(target_os = "macos")'.build-dependencies]
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 40) bindgen = "0.59"
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 41) 
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 42) [target.'cfg(target_os = "macos")'.dependencies]
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 43) libc = "0.2"
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 44) sysinfo = "0.28.4"
+9445a560e watchtower-sensor/Cargo.toml (Jacob Curlin   2023-03-30 14:07:29 -0400 45) battery = "0.7.8"
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  1) use std::env;
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  2) use std::path::PathBuf;
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  3) 
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  4) fn main() {
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  5)     println!("cargo:rustc-link-lib=framework=CoreFoundation");
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  6)     println!("cargo:rustc-link-lib=framework=IOKit");
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  7)     
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  8)     let bindings = bindgen::Builder::default()
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400  9)         .header("wrapper.h")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 10)         .clang_arg("-F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 11)         .allowlist_function("IOServiceMatching")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 12)         .allowlist_function("IOServiceNameMatching")                    // new
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 13)         .allowlist_function("IOServiceGetMatchingServices")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 14)         .allowlist_function("IORegistryEntryCreateCFProperty")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 15)         .allowlist_function("IOObjectRelease")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 16)         .allowlist_function("IOIteratorNext")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 17)         .allowlist_function("CFRelease")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 18)         .allowlist_function("CFSTR")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 19)         .allowlist_function("CFStringCreateWithCString")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 20)         .allowlist_function("CFStringGetCStringPtr")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 21)         .allowlist_type("CFDictionaryRef")                              // new
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 22)         .allowlist_type("kern_return_t")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 23)         .allowlist_type("io_service_t")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 24)         .allowlist_type("mach_port_t")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 25)         .allowlist_var("kIOMainPortDefault")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 26)         .allowlist_var("kIOPlatformUUIDKey")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 27)         .allowlist_var("CFStringRef")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 28)         .allowlist_var("kCFStringEncodingUTF8")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 29)         .allowlist_var("kCFAllocatorDefault")
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 30)         .generate()
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 31)         .expect("Unable to generate bindings");
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 32) 
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 33)     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 34)     bindings
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 35)         .write_to_file(out_path.join("bindings.rs"))
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 36)         .expect("Couldn't write bindings!");
+9445a560e watchtower-sensor/build.rs (Jacob Curlin 2023-03-30 14:07:29 -0400 37) }
+9445a560e watchtower-sensor/src/error.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  3) #[cfg(target_os = "macos")]
+9445a560e watchtower-sensor/src/error.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  4) pub type OsError = crate::sys::MacOsError;
+9445a560e watchtower-sensor/src/error.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  5) 
+9445a560e watchtower-sensor/src/error.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  6) #[cfg(not(target_os = "macos"))]
+9445a560e watchtower-sensor/src/error.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  9) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   1) // POV 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   2) // -> https://youtu.be/JAyw7OAcXDE?t=8239
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   3) // see: (Apple IOKIT Drive Design Guidelines) Implementing the User Side of the Connection  
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   4) // -> https://developer.apple.com/library/archive/documentation/DeviceDrivers/Conceptual/WritingDeviceDriver/MakingHWAccessible/MakingHWAccessible.html#//apple_ref/doc/uid/TP30000698
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   5) // see: (Darling Docs) Good Mach Ports intro/overview
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   6) // -> https://darlinghq.org/docs/mach-ports.html
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   7) // see: (FreePascal: Accessing the macOS System Information) Example: Retrieving the platform serial number
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   8) // -> https://wiki.freepascal.org/Accessing_the_macOS_System_Information
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400   9) // see: (Zameer Manji Blog) Using bindgen with System Frameworks on macOS
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  10) // -> https://zameermanji.com/blog/2021/7/13/using-bindgen-with-system-frameworks-on-macos/
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  11) // see: GH: Bebop on Rust - "reference to packed field is unaligned" - ENTIRE CRATE BROKEN ON LATEST RUST
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  12) // https://github.com/betwixt-labs/bebop/issues/220         -- resolved by whitelisting functionality
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  13) // (Apple Open GL Driver Monitor User Guide)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  14) // --> https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/OpenGLDriverMonitorUserGuide/Glossary/Glossary.html
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  15) // (Apple Developer Documentation) IOPowerSources.h API collection
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  16) // --> https://developer.apple.com/documentation/iokit/iopowersources_h
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  17) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  18) #![allow(non_upper_case_globals)]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  19) #![allow(non_camel_case_types)]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  20) #![allow(non_snake_case)]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  21) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  24) use std::{
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  25)     ffi::CStr,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  26)     collections::HashMap,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  27) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  28) use libc::KERN_SUCCESS;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  29) use sysinfo::{CpuExt, MacAddr, NetworkExt, System, SystemExt};  
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  30) use battery::{Battery, Manager};
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  31) use crate::types::{
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  32)     gpu::{Gpu, GpuHello},
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  33)     net::{Interface, InterfaceStatistics, InterfaceType, Network, NetworkHello},
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  34) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  35) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  36) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  37) include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  38) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  39) #[cfg(target_os = "macos")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  40) #[derive(Debug, thiserror::Error)]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  41) pub enum MacOsError {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  42)     #[error("IOServiceMatching failed")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  43)     IOServiceMatchingFailed,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  44) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  45)     #[error("IOServiceGetMatchingServices failed")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  46)     IOServiceGetMatchingServicesFailed,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  47) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  48)     #[error("No platform expert found")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  49)     NoPlatformExpertFound,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  50) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  51)     #[error("IORegistryEntryCreateCFProperty failed")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  52)     IORegistryEntryCreateCFPropertyFailed,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  53)     
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  54)     #[error(transparent)]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  55)     BatteryError(#[from] battery::Error),  
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  56)    
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  57)     // Add this variant for the NoBattery error case
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  58)     #[error("No battery found")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  59)     NoBattery,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  60) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  61)      // #[error("No GPU found")]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  62)      // NoGpuFound,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  65) // MACHINE_ID
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  66) pub(crate) fn machine_id() -> crate::Result<Uuid> 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  67) {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  68)     // use IOServiceMatching() to fetch a matching dictionary for the IOPlatformExpertDevice class 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  69)     let service = unsafe { IOServiceMatching("IOPlatformExpertDevice\0".as_ptr() as *const _) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  70)     if service.is_null() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  71)         return Err(crate::error::Error::Os(MacOsError::IOServiceMatchingFailed));
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  72)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  73) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  74)     // use IOServiceGetMatchingServices() to obtain an iterator of all services that match the IOPlatformExpertDevice class 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  75)     let mut matched_services: io_iterator_t = 0;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  76)     let result = unsafe { IOServiceGetMatchingServices(kIOMainPortDefault, service, &mut matched_services) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  77)     if result != KERN_SUCCESS {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  78)         return Err(crate::error::Error::Os(MacOsError::IOServiceGetMatchingServicesFailed));
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  79)     } 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  80) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  81)     // obtain the platform_expert service from the io_iterator (the io_iterator must be incremented to get the next service,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  82)     // as it functions like a linked list's head node)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  83)     let platform_expert: io_service_t = unsafe { IOIteratorNext(matched_services) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  84)     if platform_expert == 0 {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  85)         return Err(crate::error::Error::Os(MacOsError::NoPlatformExpertFound));
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  86)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  87) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  88)     // use CFSringCreateWithCString() to create a CFString from the IOPlatformUUID key to pass to IORegistryEntryCreateCFProperty()
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  89)     let uuid_key = unsafe { CFStringCreateWithCString(std::ptr::null(), "IOPlatformUUID\0".as_ptr() as *const _, kCFStringEncodingUTF8) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  90)     // use IORegistryEntryCreateCFProperty() to obtain the UUID as a reference to a CFtype from the platform_expert service
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  91)     let uuid_ref = unsafe { IORegistryEntryCreateCFProperty(platform_expert, uuid_key, kCFAllocatorDefault, 0) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  92)     if uuid_ref.is_null() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  93)         return Err(crate::error::Error::Os(MacOsError::IORegistryEntryCreateCFPropertyFailed));
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  94)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  95) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  96)     // use CFStringGetCStringPtr() to obtain a pointer to a C string from the CFString reference, and use CStr::from_ptr() 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  97)     // to convert it to a borrowed Cstring. 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  98)     let uuid_cstr = unsafe { CStr::from_ptr(CFStringGetCStringPtr(uuid_ref as _, kCFStringEncodingUTF8)) };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400  99)     // convert rust string to owned string (option)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 100)     let uuid_string = uuid_cstr.to_str();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 101)     // convert string to uuid
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 102)     let uuid = Uuid::parse_str(uuid_string.unwrap());
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 103) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 104)     // use CFRelease() to release the CFString and CFType references (todo: release uuid_key, service, matched_services, uuid_cstr?)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 105)     unsafe {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 106)         IOObjectRelease(platform_expert);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 107)         CFRelease(uuid_ref);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 108)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 109) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 110)     // return uuid
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 111)     Ok(uuid?)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 114) // HAS_BATTERY
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 115) pub(crate) fn has_battery() -> Result<bool, MacOsError> {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 116)     let manager = Manager::new().map_err(MacOsError::BatteryError)?;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 117)     let batteries = manager.batteries().map_err(MacOsError::BatteryError)?;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 118) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 119)     for battery in batteries {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 120)         if battery.is_ok() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 121)             return Ok(true);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 122)         }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 123)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 124) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 125)     Ok(false)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 126) }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 127) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 128) // BATTERY_PERCENT
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 129) pub(crate) fn battery_percent() -> Result<u8, MacOsError> {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 130)     let manager = Manager::new().map_err(MacOsError::BatteryError)?;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 131)     let batteries = manager.batteries().map_err(MacOsError::BatteryError)?;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 132) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 133)     for battery_result in batteries {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 134)         if let Ok(battery) = battery_result {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 135)             let battery_percent = (battery.state_of_charge().value * 100.0).round() as u8;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 136)             return Ok(battery_percent);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 137)         }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 138)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 139) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 140)     Err(MacOsError::NoBattery)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 144)     let mut system = System::new_all();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 145)     system.refresh_all();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 146) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 147)     let mut cpu_usage: f32 = 0.0;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 148)     let mut cpu_count: f32 = 0.0;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 149)     for cpu in system.cpus() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 150)         cpu_usage += cpu.cpu_usage();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 151)         cpu_count += 1.0;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 152)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 153)     cpu_usage /= cpu_count;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 154) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 155)     Ok(cpu_usage as u8)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 159)     let system = System::new_all();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 160)     Ok(system.total_memory())
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 164)     let system = System::new_all();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 165)     Ok(system.used_memory())
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 166) }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 167) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 168) pub(crate) fn network_statistics() -> crate::Result<Network> {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 169)     let mut out = Network {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 170)         interfaces: HashMap::new(),
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 171)     };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 172) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 173)     // Create a System instance and refresh its network information
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 174)     let mut system = System::new_all();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 175)     system.refresh_networks();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 176) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 177)     // Iterate through the network interfaces
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 178)     for (interface_name, network_data) in system.networks() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 179)         // Get the MAC address
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 180)         let MacAddr(mac_address_bytes) = network_data.mac_address(); 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 181)         let mac_address = format!(
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 182)             "{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 183)             mac_address_bytes[0],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 184)             mac_address_bytes[1],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 185)             mac_address_bytes[2],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 186)             mac_address_bytes[3],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 187)             mac_address_bytes[4],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 188)             mac_address_bytes[5]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 189)         );
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 190) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 191)         let rx = network_data.received();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 192)         let tx = network_data.transmitted();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 193) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 194)         out.interfaces
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 195)             .insert(mac_address, InterfaceStatistics { rx, tx });
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 196)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 197) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 198)     Ok(out)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 199) }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 200) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 201) // NETWORK_INFO
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 202) pub(crate) fn network_info() -> crate::Result<NetworkHello> {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 203)     let mut out = NetworkHello {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 204)         interfaces: HashMap::new(),
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 205)     };
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 206) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 207)     // Create a System instance and refresh its network information
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 208)     let mut system = System::new_all();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 209)     system.refresh_networks();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 210) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 211)     // Iterate through the network interfaces
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 212)     for (interface_name, network_data) in system.networks() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 213)         let name = interface_name.to_string();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 214) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 215)         let MacAddr(mac_address_bytes) = network_data.mac_address();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 216)         let mac_address = format!(
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 217)             "{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 218)             mac_address_bytes[0],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 219)             mac_address_bytes[1],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 220)             mac_address_bytes[2],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 221)             mac_address_bytes[3],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 222)             mac_address_bytes[4],
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 223)             mac_address_bytes[5]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 224)         );
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 225) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 226)         let description = name.clone(); // Replace with an appropriate description if available
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 227)         let r#type = InterfaceType::Other; // Replace with an appropriate interface type if available
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 228) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 229)         // depricated sysinfo functionality (ip addr)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 230)         /* 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 231)         let ip_addresses = network_data
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 232)             .iter()
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 233)             .filter_map(|addr| addr.addr())
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 234)             .map(|ip_addr| ip_addr.to_string())
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 235)             .collect::<Vec<String>>();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 236)         */
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 237) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 238)         let dummy_ip_addresses = vec!["192.168.1.1".to_string()];
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 239) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 240)         out.interfaces.insert(
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 241)             mac_address,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 242)             Interface {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 243)                 name,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 244)                 description,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 245)                 r#type,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 246)                 ip_addresses: dummy_ip_addresses,
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 247)             },
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 248)         );
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 249)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 250) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 251)     Ok(out)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 252) }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 253) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 254) pub(crate) fn gpu_info() -> crate::Result<GpuHello> {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 257) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 258) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 259) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 260) pub(crate) fn gpu_statistics() -> crate::Result<Gpu> {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 261)     todo!()
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 262) }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 263) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 264) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 265) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 266) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 267) #[cfg(test)]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 268) mod tests {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 269)     use super::*;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 270) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 271)     // MACHINE_ID   
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 272)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 273)     fn test_machine_id() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 274)         let id = machine_id().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 275)         println!("(darwin) MACHINE_ID [UUID]: {}", id);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 276)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 277) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 278)     // HAS_BATTERY
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 279)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 280)     fn test_has_battery() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 281)         let has_battery = has_battery().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 282)         println!("\n(darwin) HAS_BATTERY: {}", has_battery);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 283)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 284) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 285)     // BATTERY_PERCENT
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 286)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 287)     fn test_battery_percent() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 288)         let battery_percent = battery_percent().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 289)         println!("\n(darwin) BATTERY_PERCENT [%]: {}", battery_percent);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 290)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 291) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 292)     // CPU_USAGE_PERCENT
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 293)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 294)     fn test_cpu_usage_percent() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 295)         let cpu_usage_percent = cpu_usage_percent().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 296)         println!("\n(darwin) CPU_USAGE_PERCENT [%]: {}", cpu_usage_percent);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 297)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 298) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 299)     // INSTALLED_RAM
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 300)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 301)     fn test_installed_ram() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 302)         let installed_ram = installed_ram().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 303)         println!("\n(darwin) INSTALLED_RAM [bytes]: {}", installed_ram);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 304)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 305) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 306)     // RAM_USAGE
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 307)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 308)     fn test_ram_usage() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 309)         let ram_usage = ram_usage().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 310)         println!("\n(darwin) RAM_USAGE [bytes]: {}   [MB]: {} ;   [GB]: {}", ram_usage, ram_usage / 1024 / 1024, ram_usage / 1024 / 1024 / 1024);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 311)         let installed_ram = installed_ram().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 312)         let ram_usage_percent = (ram_usage as f64 / installed_ram as f64) * 100.0;
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 313)         println!("(darwin) RAM_USAGE [%]: {}", ram_usage_percent);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 314)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 315) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 316) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 317) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 318)     // NETWORK_INFO
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 319)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 320)     fn test_network_info() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 321)         let network_info = network_info().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 322)         println!("\n(darwin) NETWORK_INFO: {:#?}", network_info);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 323)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 324) 
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 325)     // NETWORK_STATISTICS
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 326)     #[test]
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 327)     fn test_network_statistics() {
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 328)         let network_statistics = network_statistics().unwrap();
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 329)         println!("\n(darwin) NETWORK_STATISTICS: {:#?}", network_statistics);
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 330)     }
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 331)     
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 332)     // GPU_INFO
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 333)     // (todo)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 334)     
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 335)     // GPU_STATISTICS
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 336)     // (todo)
+9445a560e watchtower-sensor/src/sys/darwin.rs (Jacob Curlin   2023-03-30 14:07:29 -0400 337) }
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 1) /* 
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 2)  * the 'wrapper.h' file includes all the various headers 
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 3)  * containing 'c-code' definitions of structs and functions 
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 4)  * that bindings will be created for
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 5) */
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 6) 
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 7) #include <IOKit/IOKitLib.h>
+9445a560e watchtower-sensor/wrapper.h (Jacob Curlin 2023-03-30 14:07:29 -0400 8) #include <CoreFoundation/CoreFoundation.h>

@@ -1,0 +1,472 @@
+main.py
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   1) import sys
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   2) import os
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   3) from PySide2 import *
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   4)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   5) from qt_material import*
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   6) from ui_interface import *
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   7) from multiprocessing import cpu_count
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   8) from time import sleep
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500   9) import platform
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  10) import psutil
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  11) import PySide2extn
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  12) import platform
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  13) import datetime
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  14) import shutil
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500  15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  16) from time import sleep
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  17) class WorketSignals(QObject):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  18)     finished = Signal()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  19)     error = Signal(tuple)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  20)     result = Signal(object)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  21)     progress = Signal(int)
+:...skipping...
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   1) import sys
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   2) import os
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   3) from PySide2 import *
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   4)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   5) from qt_material import*
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   6) from ui_interface import *
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   7) from multiprocessing import cpu_count
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   8) from time import sleep
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500   9) import platform
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  10) import psutil
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  11) import PySide2extn
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  12) import platform
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  13) import datetime
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  14) import shutil
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500  15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  16) from time import sleep
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  17) class WorketSignals(QObject):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  18)     finished = Signal()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  19)     error = Signal(tuple)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  20)     result = Signal(object)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  21)     progress = Signal(int)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  22) class Worker(object):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  23)     """docstring for worker"""
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  24)     def __init__(self, fn, *args, **kwargs):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  25)         super(Worker,self).__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  26)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  27)         self.fn=fn
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  28)         self.args=args
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  29)         self.kwargs=kwargs
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  30)         self.signals = WorketSignals()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  31)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  32)         self.kwargs['progress_callback'] = self.signals.progress
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  33)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  34)     @Slot()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  35)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  36)         try:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  37)             result=self.fn(*self.args,**self.kwargs)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  38)         except:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  39)             traceback.print_exc()
+:...skipping...
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   1) import sys
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   2) import os
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   3) from PySide2 import *
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   4)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   5) from qt_material import*
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   6) from ui_interface import *
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   7) from multiprocessing import cpu_count
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   8) from time import sleep
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500   9) import platform
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  10) import psutil
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  11) import PySide2extn
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  12) import platform
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  13) import datetime
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  14) import shutil
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500  15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  16) from time import sleep
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  17) class WorketSignals(QObject):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  18)     finished = Signal()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  19)     error = Signal(tuple)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  20)     result = Signal(object)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  21)     progress = Signal(int)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  22) class Worker(object):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  23)     """docstring for worker"""
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  24)     def __init__(self, fn, *args, **kwargs):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  25)         super(Worker,self).__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  26)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  27)         self.fn=fn
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  28)         self.args=args
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  29)         self.kwargs=kwargs
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  30)         self.signals = WorketSignals()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  31)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  32)         self.kwargs['progress_callback'] = self.signals.progress
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  33)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  34)     @Slot()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  35)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  36)         try:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  37)             result=self.fn(*self.args,**self.kwargs)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  38)         except:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  39)             traceback.print_exc()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  40)             exctype, value =sys.exc_info()[:2]
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  41)             self.signals.error.emit((exctype.value,traceback.format_exc()))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  42)         else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  43)             self.signals.result.emit(result)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  44)         finally:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  45)             self.signals.finished.emit()
+:
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   1) import sys
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   2) import os
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   3) from PySide2 import *
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   4)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   5) from qt_material import*
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   6) from ui_interface import *
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   7) from multiprocessing import cpu_count
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   8) from time import sleep
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500   9) import platform
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  10) import psutil
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  11) import PySide2extn
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  12) import platform
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  13) import datetime
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  14) import shutil
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500  15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  16) from time import sleep
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  17) class WorketSignals(QObject):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  18)     finished = Signal()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  19)     error = Signal(tuple)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  20)     result = Signal(object)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  21)     progress = Signal(int)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  22) class Worker(object):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  23)     """docstring for worker"""
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  24)     def __init__(self, fn, *args, **kwargs):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  25)         super(Worker,self).__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  26)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  27)         self.fn=fn
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  28)         self.args=args
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  29)         self.kwargs=kwargs
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  30)         self.signals = WorketSignals()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  31)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  32)         self.kwargs['progress_callback'] = self.signals.progress
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  33)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  34)     @Slot()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  35)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  36)         try:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  37)             result=self.fn(*self.args,**self.kwargs)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  38)         except:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  39)             traceback.print_exc()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  40)             exctype, value =sys.exc_info()[:2]
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  41)             self.signals.error.emit((exctype.value,traceback.format_exc()))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  42)         else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  43)             self.signals.result.emit(result)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  44)         finally:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  45)             self.signals.finished.emit()
+:...skipping...
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   1) import sys
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   2) import os
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   3) from PySide2 import *
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   4)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   5) from qt_material import*
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   6) from ui_interface import *
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   7) from multiprocessing import cpu_count
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   8) from time import sleep
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500   9) import platform
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  10) import psutil
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  11) import PySide2extn
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  12) import platform
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  13) import datetime
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  14) import shutil
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500  15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  16) from time import sleep
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  17) class WorketSignals(QObject):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  18)     finished = Signal()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  19)     error = Signal(tuple)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  20)     result = Signal(object)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  21)     progress = Signal(int)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  22) class Worker(object):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  23)     """docstring for worker"""
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  24)     def __init__(self, fn, *args, **kwargs):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  25)         super(Worker,self).__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  26)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  27)         self.fn=fn
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  28)         self.args=args
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  29)         self.kwargs=kwargs
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  30)         self.signals = WorketSignals()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  31)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  32)         self.kwargs['progress_callback'] = self.signals.progress
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  33)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  34)     @Slot()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  35)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  36)         try:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  37)             result=self.fn(*self.args,**self.kwargs)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  38)         except:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  39)             traceback.print_exc()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  40)             exctype, value =sys.exc_info()[:2]
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  41)             self.signals.error.emit((exctype.value,traceback.format_exc()))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  42)         else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  43)             self.signals.result.emit(result)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  44)         finally:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  45)             self.signals.finished.emit()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  46) class WorkerRunnable(QRunnable):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  47)     def __init__(self, worker):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  48)         super().__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  49)         self.worker = worker
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  50)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  51)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  52)         self.worker.run()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  53)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500  54) class MainWindow (QMainWindow):
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  55)     def __init__(self):
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  56)         QMainWindow.__init__(self)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  57)         self.ui = Ui_MainWindow()
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  58)         self.ui.setupUi(self)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  59)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  60)         #apply_stylesheet(app, theme='dark_cyan.xml')
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  61)         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  62)         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  63)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  64)         self.shadow = QGraphicsDropShadowEffect(self)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  65)         self.shadow.setBlurRadius(50)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  66)         self.shadow.setXOffset(0)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  67)         self.shadow.setYOffset(0)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  68)         self.shadow.setColor(QColor(0,92,157,550))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  69)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  70)         self.ui.centralwidget.setGraphicsEffect(self.shadow)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  71)
+ ESCOD
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   2) import os
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   3) from PySide2 import *
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   4)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   5) from qt_material import*
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500   6) from ui_interface import *
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   7) from multiprocessing import cpu_count
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500   8) from time import sleep
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500   9) import platform
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  10) import psutil
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  11) import PySide2extn
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  12) import platform
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500  13) import datetime
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  14) import shutil
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500  15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  16) from time import sleep
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  17) class WorketSignals(QObject):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  18)     finished = Signal()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  19)     error = Signal(tuple)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  20)     result = Signal(object)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  21)     progress = Signal(int)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  22) class Worker(object):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  23)     """docstring for worker"""
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  24)     def __init__(self, fn, *args, **kwargs):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  25)         super(Worker,self).__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  26)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  27)         self.fn=fn
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  28)         self.args=args
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  29)         self.kwargs=kwargs
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  30)         self.signals = WorketSignals()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  31)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  32)         self.kwargs['progress_callback'] = self.signals.progress
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  33)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  34)     @Slot()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  35)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  36)         try:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  37)             result=self.fn(*self.args,**self.kwargs)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  38)         except:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  39)             traceback.print_exc()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  40)             exctype, value =sys.exc_info()[:2]
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  41)             self.signals.error.emit((exctype.value,traceback.format_exc()))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  42)         else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  43)             self.signals.result.emit(result)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  44)         finally:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  45)             self.signals.finished.emit()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  46) class WorkerRunnable(QRunnable):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  47)     def __init__(self, worker):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  48)         super().__init__()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  49)         self.worker = worker
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  50)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  51)     def run(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  52)         self.worker.run()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  53)
+0f7a44f0 (ductrong5x5 2023-02-14 00:59:40 -0500  54) class MainWindow (QMainWindow):
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  55)     def __init__(self):
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  56)         QMainWindow.__init__(self)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  57)         self.ui = Ui_MainWindow()
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  58)         self.ui.setupUi(self)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  59)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  60)         #apply_stylesheet(app, theme='dark_cyan.xml')
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  61)         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  62)         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  63)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  64)         self.shadow = QGraphicsDropShadowEffect(self)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  65)         self.shadow.setBlurRadius(50)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  66)         self.shadow.setXOffset(0)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  67)         self.shadow.setYOffset(0)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  68)         self.shadow.setColor(QColor(0,92,157,550))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  69)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  70)         self.ui.centralwidget.setGraphicsEffect(self.shadow)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  71)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  72)         self.setWindowIcon(QtGui.QIcon(":/image/icons8-ecg-64.png"))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  73)         self.setWindowTitle("Monitoring Aplication")
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  74)         QSizeGrip(self.ui.size_grip)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  75)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  76)         self.ui.Minimize_window_button.clicked.connect(lambda:self.showMinimized())
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  77)         self.ui.Close_window_button.clicked.connect(lambda:self.close())
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  78)         self.ui.resize_window_button.clicked.connect(lambda:self.restore_or_maximize_window())
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  79)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  80)         self.ui.cpu_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.cpu_and_memory))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  81)         self.ui.battery_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.battery))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  82)         self.ui.systeminformation_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.systeminfo))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  83)         self.ui.activity_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.activities))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  84)         self.ui.storage_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.storage))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  85)         self.ui.sensor_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.sensors))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  86)         self.ui.network_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.network))
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  87)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  88)         def moveWindow(e):
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  89)             if self.isMaximized() == False:
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  90)                 if e.buttons() == Qt.LeftButton:
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  91)                     self.move(self.pos() + e.globalPos() - self.clickPosition)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  92)                     self.clickPosition = e.globalPos()
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  93)                     e.accept()
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  94)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  95)         self.ui.Header_frame.mouseMoveEvent = moveWindow
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  96)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  97)         self.ui.open_menu_button.clicked.connect(lambda: self.slideLeftMenu())
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500  98)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500  99)         self.threadpool=QThreadPool()
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 100)         self.show()
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500 101)         user=psutil.users()
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500 102)         theuser=user[0]
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500 103)         name=theuser.name
+84a885fb (ductrong5x5 2023-03-05 02:34:09 -0500 104)         self.ui.Userid.setText(name)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 105)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 106)         # self.cpu_ram()
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 107)         # self.systemin()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 108)         self.psutil_thread()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 109)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 110)     def psutil_thread(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 111)         worker =Worker(self.cpu_ram)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 112)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 113)         worker.signals.result.connect(self.print_output)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 114)         worker.signals.finished.connect(self.thread_complete)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 115)         worker.signals.progress.connect(self.progress_fn)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 116)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 117)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 118)         runnable = WorkerRunnable(worker)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 119)         self.threadpool.start(runnable)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 120)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 121)         battery_check = psutil.sensors_battery()
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 122)         is_laptop =  battery_check is not None
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 123)         if is_laptop:
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 124)             battery_worker=Worker(self.battery)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 125)             battery_worker.signals.result.connect(self.print_output)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 126)             battery_worker.signals.finished.connect(self.thread_complete)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 127)             battery_worker.signals.progress.connect(self.progress_fn)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 128)             runnable2 = WorkerRunnable(battery_worker)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 129)             self.threadpool.start(runnable2)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 130)         else:
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 131)             self.ui.battery_status.setText("There is no battery")
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 132)             self.ui.battery_plugged.setText("Is Plugged")
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 133)             self.ui.battery_chart.rpb_setValue(100)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 134)             self.ui.battery_chart.rpb_setLineColor((0,255,0))
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 135)             self.ui.battery_chart.rpb_setPieColor((45,74,83))
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 136)             self.ui.battery_chart.rpb_setTextColor((0,0,0))
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 137)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 138)         worker3 =Worker(self.systemin)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 139)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 140)         worker3.signals.result.connect(self.print_output)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 141)         worker3.signals.finished.connect(self.thread_complete)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 142)         worker3.signals.progress.connect(self.progress_fn)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 143)         runnable3 = WorkerRunnable(worker3)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 144)         self.threadpool.start(runnable3)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 145)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 146)     def print_output(self,s):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 147)         print(s)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 148)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 149)     def thread_complete(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 150)         print("THREAD COMPLETE!")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 151)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 152)     def progress_fn(self,n):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 153)         print("%d%% done" % n)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 154)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 155)
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 156)     def secs2hours(self,secs):
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 157)         mm, ss = divmod(secs,60)
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 157)         mm, ss = divmod(secs,60)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 142)         worker3.signals.progress.connect(self.progress_fn)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 143)         runnable3 = WorkerRunnable(worker3)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 144)         self.threadpool.start(runnable3)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 145)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 146)     def print_output(self,s):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 147)         print(s)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 148)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 149)     def thread_complete(self):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 150)         print("THREAD COMPLETE!")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 151)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 152)     def progress_fn(self,n):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 153)         print("%d%% done" % n)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 154)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 155)
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 156)     def secs2hours(self,secs):
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 157)         mm, ss = divmod(secs,60)
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 158)         hh, mm = divmod(mm,60)
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 159)         return "%dH %02dm %02ds " % (hh,mm,ss)
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 160)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 161)     def systemin(self, progress_callback):
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 162)         self.ui.machine11.setText(platform.machine())
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 163)         self.ui.version.setText(platform.version())
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 164)         self.ui.Platform.setText(platform.platform())
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 165)         self.ui.system.setText(platform.system())
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 166)         self.ui.Processor.setText(platform.processor())
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 167)         while True:
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 168)             time=datetime.datetime.now().strftime("%I:%M:%S %p")
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 169)             self.ui.systime.setText(str(time))
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 170)
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 171)             date=datetime.datetime.now().strftime("%Y-%m-%d")
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 172)             self.ui.sysdate.setText(str(date))
+dac7f484 (ductrong5x5 2023-03-05 23:25:55 -0500 173)             sleep(1)
+5095a095 (ductrong5x5 2023-02-22 15:58:02 -0500 174)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 175)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 176)
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 177)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 178)     def battery(self, progress_callback):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 179)         while True:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 180)             batt = psutil.sensors_battery()
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 181)             if not hasattr(psutil,"sensors_battery"):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 182)                 self.ui.battery_status.setText("Not supported")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 183)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 184)             if batt is None:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 185)                 self.ui.battery_status.setText("No battery")
+fbd3b0f0 (ductrong5x5 2023-02-21 23:23:27 -0500 186)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 187)             if batt.power_plugged:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 188)                 self.ui.battery_charge.setText(str(round(batt.percent,2))+"%")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 189)                 self.ui.battery_timeleft.setText("No idea")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 190)                 if batt.percent <100:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 191)                     self.ui.battery_status.setText("Charging")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 192)                 else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 193)                     self.ui.battery_status.setText("Fully Charged")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 194)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 195)                 self.ui.battery_plugged.setText("Is plugged")
+2a046e67 (ductrong5x5 2023-03-01 19:25:57 -0500 196)             else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 197)                 self.ui.battery_charge.setText(str(round(batt.percent,2))+"%")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 198)                 self.ui.battery_timeleft.setText(self.secs2hours(batt.secsleft))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 199)                 if batt.percent <100:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 200)                     self.ui.battery_status.setText("Not Charging")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 201)                 else:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 202)                     self.ui.battery_status.setText("Fully Charged")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 203)                     self.ui.battery_plugged.setText("Not Plugged ")
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 204)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 205)             self.ui.battery_chart.rpb_setMaximum(100)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 206)             self.ui.battery_chart.rpb_setValue(batt.percent)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 207)             self.ui.battery_chart.rpb_setBarStyle('Hybrid2')
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 208)             self.ui.battery_chart.rpb_setLineColor((255,30,99))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 209)             self.ui.battery_chart.rpb_setPieColor((45,74,83))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 210)             self.ui.battery_chart.rpb_setTextColor((0,0,0))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 211)             self.ui.battery_chart.rpb_setInitialPos('North')
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 212)             self.ui.battery_chart.rpb_setTextFormat('Percentage')
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 213)             self.ui.battery_chart.rpb_setLineWidth(15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 214)             self.ui.battery_chart.rpb_setPathWidth(15)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 215)             self.ui.battery_chart.rpb_setLineCap('RoundCap')
+9ff1fda6 (ductrong5x5 2023-03-05 01:56:46 -0500 216)             sleep(0.1)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 217)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 218)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 219)     def cpu_ram(self, progress_callback):
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 220)         while True:
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 221)             totalRam = 1.0
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 222)             totalRam = psutil.virtual_memory() [0] *totalRam
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 223)             totalRam = totalRam / (1024*1024*1024)
+9ff1fda6 (ductrong5x5 2023-03-05 01:56:46 -0500 224)             self.ui.total_ram.setText(str("{:.2f}".format(totalRam)+' GB'))
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 225)
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 226)             availableRam=1.0
+eb733d57 (ductrong5x5 2023-03-05 01:33:38 -0500 227)             availableRam= psutil.
+(END)
+

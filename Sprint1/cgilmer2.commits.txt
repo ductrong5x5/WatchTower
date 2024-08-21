@@ -1,0 +1,376 @@
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  1) use thiserror::Error;
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  2) 
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  3) use crate::os::OsError;
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  4) 
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  5) #[derive(Debug, Error)]
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  6) pub enum Error {
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  7)     #[error("os error")]
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  8)     Os(#[from] OsError),
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  9)     #[error("uuid error")]
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 10)     Uuid(#[from] uuid::Error),
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 11)     #[error("i/o error")]
+6ca726ba watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 12)     Io(#[from] std::io::Error),
+cbeaae5e watchtower-sensor/src/error.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 13) }
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  1) pub(crate) mod error;
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  2) pub(crate) mod message;
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  3) pub(crate) mod os;
+597dde35 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:12:57 -0500  4) pub(crate) mod types;
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  5) 
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  6) pub(crate) use error::Error;
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  7) pub(crate) type Result<T, E = Error> = ::std::result::Result<T, E>;
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  8) 
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  9) fn main() -> color_eyre::Result<()> {
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 10)     color_eyre::install()?;
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 11) 
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 12)     let hello = message::Message::hello()?;
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 13)     println!("{}", serde_json::to_string_pretty(&hello)?);
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 14) 
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 15)     loop {
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 16)         let battery = message::Message::battery()?;
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 17)         println!("{}", serde_json::to_string_pretty(&battery)?);
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 18) 
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 19)         let cpu = message::Message::cpu()?;
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 20)         println!("{}", serde_json::to_string_pretty(&cpu)?);
+792070b9 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 21) 
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 22)         let ram = message::Message::ram()?;
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 23)         println!("{}", serde_json::to_string_pretty(&ram)?);
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 24) 
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 25)         std::thread::sleep(std::time::Duration::from_secs(5));
+9bf0f872 watchtower-sensor/src/main.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 26)     }
+cbeaae5e watchtower-sensor/src/main.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 27) }
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  1) use chrono::{DateTime, Utc};
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  2) use serde::{Deserialize, Serialize};
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  3) use uuid::Uuid;
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  4) 
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  5) use crate::{
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  6)     os,
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  7)     types::{battery::Battery, cpu::Cpu, hello::Hello, ram::Ram, MessageType},
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  8) };
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  9) 
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 10) #[derive(Debug, Deserialize, Serialize)]
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 11) pub(crate) struct MessageHeader {
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 12)     id: Uuid,
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 13)     timestamp: DateTime<Utc>,
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 14) }
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 15) 
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 16) impl MessageHeader {
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 17)     pub(crate) fn new() -> crate::Result<MessageHeader> {
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 18)         Ok(Self {
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 19)             id: os::machine_id()?,
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 20)             timestamp: Utc::now(),
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 21)         })
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 22)     }
+cbeaae5e watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 23) }
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 24) 
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 25) #[derive(Debug, Deserialize, Serialize)]
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 26) pub(crate) struct Message {
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 27)     #[serde(flatten)]
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 28)     variant: MessageType,
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 29)     #[serde(flatten)]
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 30)     header: MessageHeader,
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 31) }
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 32) 
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 33) impl Message {
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 34)     pub(crate) fn hello() -> crate::Result<Message> {
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 35)         Ok(Message {
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 36)             variant: MessageType::Hello(Hello::collect()?),
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 37)             header: MessageHeader::new()?,
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 38)         })
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 39)     }
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 40) 
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 41)     pub(crate) fn battery() -> crate::Result<Message> {
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 42)         Ok(Message {
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 43)             variant: MessageType::Battery(Battery::collect()?),
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 44)             header: MessageHeader::new()?,
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 45)         })
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 46)     }
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 47) 
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 48)     pub(crate) fn cpu() -> crate::Result<Message> {
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 49)         Ok(Message {
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 50)             variant: MessageType::Cpu(Cpu::collect()?),
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 51)             header: MessageHeader::new()?,
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 52)         })
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 53)     }
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 54) 
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 55)     pub(crate) fn ram() -> crate::Result<Message> {
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 56)         Ok(Message {
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 57)             variant: MessageType::Ram(Ram::collect()?),
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 58)             header: MessageHeader::new()?,
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 59)         })
+441da7ca watchtower-sensor/src/message.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 60)     }
+6ca726ba watchtower-sensor/src/message.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 61) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  1) use uuid::Uuid;
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  2) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  3) pub(crate) fn machine_id() -> crate::Result<Uuid> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  4)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  5) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  6) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  7) pub(crate) fn has_battery() -> crate::Result<bool> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  8)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  9) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 10) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 11) pub(crate) fn battery_percent() -> crate::Result<u8> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 12)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 13) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 14) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 15) pub(crate) fn cpu_core_count() -> crate::Result<usize> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 16)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 17) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 18) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 19) pub(crate) fn cpu_usage_percent() -> crate::Result<u8> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 20)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 21) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 22) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 23) pub(crate) fn installed_ram() -> crate::Result<usize> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 24)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 25) }
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 26) 
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 27) pub(crate) fn ram_usage() -> crate::Result<usize> {
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 28)     todo!()
+441da7ca watchtower-sensor/src/os/darwin.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 29) }
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  1) #[cfg(target_os = "macos")]
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  2) pub(crate) mod darwin;
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  3) 
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  4) #[cfg(target_os = "linux")]
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  5) pub(crate) mod linux;
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  6) 
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  7) #[cfg(windows)]
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  8) pub(crate) mod windows;
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  9) 
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 10) #[cfg(target_os = "macos")]
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 11) pub(crate) use self::darwin::*;
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 12) #[cfg(target_os = "linux")]
+441da7ca watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 13) pub(crate) use self::linux::*;
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 14) #[cfg(windows)]
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 15) pub(crate) use self::windows::*;
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 16) 
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 17) #[cfg(test)]
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 18) mod tests {
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 19)     use super::*;
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 20) 
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 21)     #[test]
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 22)     fn is_ok() {
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 23)         assert!(machine_id().is_ok());
+cbeaae5e watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500 24)     }
+6ca726ba watchtower-sensor/src/os/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 25) }
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   1) use std::{
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   2)     ffi::{c_void, CString},
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   3)     str::FromStr,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   4) };
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   5) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   6) use uuid::Uuid;
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500   7) use windows::{
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500   8)     s, w,
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500   9)     Win32::{
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  10)         Foundation::ERROR_SUCCESS,
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  11)         System::{
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500  12)             Performance::{
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500  13)                 PdhAddEnglishCounterW, PdhCollectQueryData, PdhGetFormattedCounterValue,
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500  14)                 PdhOpenQueryW, PDH_FMT_COUNTERVALUE, PDH_FMT_DOUBLE,
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500  15)             },
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  16)             Power::{GetSystemPowerStatus, SYSTEM_POWER_STATUS},
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  17)             Registry::{RegGetValueA, HKEY_LOCAL_MACHINE, RRF_RT_REG_SZ},
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  18)             SystemInformation::{
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  19)                 GetPhysicallyInstalledSystemMemory, GetSystemInfo, GlobalMemoryStatus,
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  20)                 MEMORYSTATUS, SYSTEM_INFO,
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  21)             },
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  22)         },
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500  23)     },
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  24) };
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  25) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  26) pub(crate) type OsError = windows::core::Error;
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  27) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  28) pub(crate) fn machine_id() -> crate::Result<Uuid> {
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  29)     let mut value_size = u32::default();
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  30) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  31)     unsafe {
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  32)         RegGetValueA(
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  33)             HKEY_LOCAL_MACHINE,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  34)             s!("SOFTWARE\\Microsoft\\Cryptography"),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  35)             s!("MachineGuid"),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  36)             RRF_RT_REG_SZ,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  37)             None,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  38)             None,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  39)             Some(&mut value_size),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  40)         )
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  41)         .ok()?;
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  42)     }
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  43) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  44)     let mut buf: Vec<u8> = Vec::with_capacity(value_size as usize);
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  45) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  46)     unsafe {
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  47)         RegGetValueA(
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  48)             HKEY_LOCAL_MACHINE,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  49)             s!("SOFTWARE\\Microsoft\\Cryptography"),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  50)             s!("MachineGuid"),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  51)             RRF_RT_REG_SZ,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  52)             None,
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  53)             Some(buf.as_mut_ptr() as *mut c_void),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  54)             Some(&mut value_size),
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  55)         )
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  56)         .ok()?;
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  57) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  58)         buf.set_len(value_size as usize);
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  59)     }
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  60) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  61)     let binding = CString::from_vec_with_nul(buf).unwrap();
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  62) 
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  63)     Ok(Uuid::from_str(binding.to_str().unwrap())?)
+cbeaae5e watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-02-26 13:08:53 -0500  64) }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  65) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  66) pub(crate) fn has_battery() -> crate::Result<bool> {
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  67)     let mut status = SYSTEM_POWER_STATUS::default();
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  68) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  69)     unsafe {
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  70)         GetSystemPowerStatus(&mut status).ok()?;
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  71)     }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  72) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  73)     // per MSDN (https://learn.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-system_power_status)
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  74)     // SYSTEM_POWER_STATUS.BatteryFlag is 128 if a system battery doesn't exist
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  75)     Ok(status.BatteryFlag != 128)
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  76) }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  77) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  78) pub(crate) fn battery_percent() -> crate::Result<u8> {
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  79)     let mut status = SYSTEM_POWER_STATUS::default();
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  80) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  81)     unsafe {
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  82)         GetSystemPowerStatus(&mut status).ok()?;
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  83)     }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  84) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  85)     Ok(status.BatteryLifePercent)
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  86) }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  87) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  88) pub(crate) fn cpu_core_count() -> crate::Result<usize> {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  89)     let mut si = SYSTEM_INFO::default();
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  90) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  91)     unsafe {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  92)         GetSystemInfo(&mut si);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  93)     }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  94) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  95)     Ok(si.dwNumberOfProcessors as usize)
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  96) }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  97) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  98) pub(crate) fn cpu_usage_percent() -> crate::Result<u8> {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  99)     let mut hquery = isize::default();
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 100)     let mut hcounter = isize::default();
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 101) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 102)     unsafe {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 103)         if PdhOpenQueryW(None, 0, &mut hquery) != ERROR_SUCCESS.0 {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 104)             return Err(crate::error::Error::Os(windows::core::Error::from_win32()));
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 105)         }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 106) 
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 107)         if PdhAddEnglishCounterW(
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 108)             hquery,
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 109)             w!("\\Processor(_Total)\\% Processor Time"),
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 110)             0,
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 111)             &mut hcounter,
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 112)         ) != ERROR_SUCCESS.0
+9bf0f872 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-06 21:08:57 -0500 113)         {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 114)             return Err(crate::error::Error::Os(windows::core::Error::from_win32()));
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 115)         }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 116) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 117)         PdhCollectQueryData(hquery);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 118) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 119)         let duration = std::time::Duration::from_millis(100);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 120)         std::thread::sleep(duration);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 121) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 122)         PdhCollectQueryData(hquery);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 123)     }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 124) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 125)     let mut counter_val = PDH_FMT_COUNTERVALUE::default();
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 126) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 127)     unsafe {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 128)         PdhGetFormattedCounterValue(hcounter, PDH_FMT_DOUBLE, None, &mut counter_val);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 129)     }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 130) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 131)     Ok(unsafe { counter_val.Anonymous.doubleValue as u8 })
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 132) }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 133) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 134) pub(crate) fn installed_ram() -> crate::Result<u64> {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 135)     let mut installed = u64::default();
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 136) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 137)     unsafe {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 138)         GetPhysicallyInstalledSystemMemory(&mut installed).ok()?;
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 139)     }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 140) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 141)     Ok(installed)
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 142) }
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 143) 
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 144) pub(crate) fn ram_usage() -> crate::Result<usize> {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 145)     let mut memory_status = MEMORYSTATUS::default();
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 146) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 147)     unsafe {
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 148)         GlobalMemoryStatus(&mut memory_status);
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 149)     }
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 150) 
+792070b9 watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 151)     Ok(memory_status.dwTotalPhys - memory_status.dwAvailPhys)
+441da7ca watchtower-sensor/src/os/windows.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 152) }
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  1) use serde::{Deserialize, Serialize};
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  2) 
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  3) use crate::os;
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  4) 
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  5) #[derive(Debug, Deserialize, Serialize)]
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  6) pub(crate) struct Battery {
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  7)     has_battery: bool,
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  8)     percent: u8,
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  9) }
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 10) 
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 11) impl Battery {
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 12)     pub(crate) fn collect() -> crate::Result<Self> {
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 13)         Ok(Self {
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 14)             has_battery: os::has_battery()?,
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 15)             percent: os::battery_percent()?,
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 16)         })
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 17)     }
+441da7ca watchtower-sensor/src/types/battery.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 18) }
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  1) use serde::{Deserialize, Serialize};
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  2) 
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  3) #[derive(Debug, Deserialize, Serialize)]
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  4) pub(crate) struct Hello {
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  5)     #[serde(flatten)]
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  6)     inner: os_info::Info,
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  7) }
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  8) 
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  9) impl Hello {
+441da7ca watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 10)     pub(crate) fn collect() -> crate::Result<Self> {
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 11)         Ok(Self {
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 12)             inner: os_info::get(),
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 13)         })
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 14)     }
+6ca726ba watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 15) }
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  1) use serde::{Deserialize, Serialize};
+cbeaae5e watchtower-sensor/src/data/mod.rs  (Clayton Gilmer 2023-02-26 13:08:53 -0500  2) 
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  3) pub(crate) mod battery;
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  4) pub(crate) mod cpu;
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  5) pub(crate) mod hello;
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  6) pub(crate) mod ram;
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  7) 
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  8) #[derive(Debug, Deserialize, Serialize)]
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500  9) pub(crate) enum MessageType {
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 10)     #[serde(rename = "hello")]
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 11)     Hello(hello::Hello),
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 12)     #[serde(rename = "battery")]
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 13)     Battery(battery::Battery),
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 14)     #[serde(rename = "cpu")]
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 15)     Cpu(cpu::Cpu),
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 16)     #[serde(rename = "ram")]
+441da7ca watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 17)     Ram(ram::Ram),
+6ca726ba watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-02-26 13:41:10 -0500 18) }
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  1) use serde::{Deserialize, Serialize};
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  2) 
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  3) use crate::os;
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  4) 
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  5) #[derive(Debug, Deserialize, Serialize)]
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  6) pub(crate) struct Ram {
+792070b9 watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500  7)     installed_kilobytes: u64,
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  8)     usage: usize,
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500  9) }
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 10) 
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 11) impl Ram {
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 12)     pub(crate) fn collect() -> crate::Result<Self> {
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 13)         Ok(Self {
+792070b9 watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 20:33:43 -0500 14)             installed_kilobytes: os::installed_ram()?,
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 15)             usage: os::ram_usage()?,
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 16)         })
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 17)     }
+441da7ca watchtower-sensor/src/types/ram.rs (Clayton Gilmer 2023-03-01 08:06:52 -0500 18) }

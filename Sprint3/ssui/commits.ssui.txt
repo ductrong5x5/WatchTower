@@ -1,0 +1,191 @@
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  27)         cursor.execute( 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  28)             "CREATE DATABASE IF NOT EXISTS disks;"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  29)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  34)         ### General machine data ###
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  35)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  36)             f"""CREATE TABLE IF NOT EXISTS machines (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  37)                     timestamp VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  38)                     id VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  39)                     os_type VARCHAR(30),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  40)                     version_semantic VARCHAR(20),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  41)                     edition VARCHAR(30),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  42)                     bitness VARCHAR(10),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  43)                     has_battery VARCHAR(10),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  44)                     cpu_core_count INT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  45)                     cpu_thread_count INT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  46)                     clock_speed INT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  47)                     ram_installed BIGINT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  48)                     gpu VARCHAR(100),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  49)                     gpu_vram BIGINT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  50)                     max_frequency INT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  51)                     PRIMARY KEY (`id`)
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  52)                 );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  53)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  54)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  55)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  56)             f"""INSERT IGNORE INTO machines (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  57)                 timestamp,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  58)                 id,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  59)                 os_type,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  60)                 version_semantic,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  61)                 edition,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  62)                 bitness,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  63)                 has_battery,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  64)                 cpu_core_count,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  65)                 cpu_thread_count,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  66)                 clock_speed,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  67)                 ram_installed,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  68)                 gpu,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  69)                 gpu_vram,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  70)                 max_frequency
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  71)             )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  72)             VALUES (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  73)                 '{json['timestamp']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  74)                 '{json['id']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  75)                 '{json['hello']['os_type']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  76)                 '{str(json['hello']['version']['Semantic'])}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  77)                 '{json['hello']['edition']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  78)                 '{json['hello']['bitness']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  79)                 '{str(json['hello']['battery']['has_battery'])}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  80)                 '{json['hello']['cpu']['core_count']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  81)                 '{json['hello']['cpu']['thread_count']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  82)                 '{json['hello']['cpu']['clock_speed']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  83)                 '{json['hello']['ram']['installed']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  84)                 '{json['hello']['gpu']['name']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  85)                 '{json['hello']['gpu']['installed_vram']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  86)                 '{json['hello']['gpu']['max_frequency']}'
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  87)             );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  88)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400  89)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 141)         ### Network Interfaces ###
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 142)         print("DISKS")
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 143)         db = load_db()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 144)         cursor = db.cursor()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 145)         cursor.execute( 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 146)             "USE disks;"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 147)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 148)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 149)             f"""CREATE TABLE IF NOT EXISTS `{json['id']}` (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 150)                     id VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 151)                     disk VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 152)                     type VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 153)                     capacity BIGINT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 154)                     used BIGINT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 155)                     removable VARCHAR(15),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 156)                     PRIMARY KEY(id)
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 157)                 );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 158)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 159)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 160)         db.commit()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 161)         cursor.close()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 162)         for disk in json['hello']['disk']['disks']:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 163)             print(disk)
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 164)             cursor = db.cursor()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 165)             if "Unknown" in json['hello']['disk']['disks'][disk]['type']:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 166)                 disk_type = "Cloud"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 167)             else:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 168)                 disk_type = json['hello']['disk']['disks'][disk]['type']
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 169)             cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 170)                 f"""INSERT IGNORE INTO `{json['id']}` (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 171)                     id,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 172)                     disk,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 173)                     type,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 174)                     capacity,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 175)                     used,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 176)                     removable
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 177)                 ) 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 178)                 VALUES (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 179)                     '{json['id']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 180)                     '{disk}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 181)                     '{disk_type}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 182)                     '{json['hello']['disk']['disks'][disk]['capacity']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 183)                     '{json['hello']['disk']['disks'][disk]['usage']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 184)                     '{str(json['hello']['disk']['disks'][disk]['is_removable'])}'
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 185)                 );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 186)                 """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 187)             )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 188)             db.commit()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 189)             cursor.close()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 190)         db.close()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 231)     ### CPU ###
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 232)     elif 'cpu' in json:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 233)         cursor.execute( 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 234)             "CREATE DATABASE IF NOT EXISTS cpu;"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 235)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 236)         cursor.execute( 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 237)             "USE cpu;"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 238)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 239)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 240)             f"""CREATE TABLE IF NOT EXISTS `{json['id']}` (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 241)                     timestamp VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 242)                     id VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 243)                     percent INT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 244)                     clock_speed INT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 245)                     temperature INT
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 246)                 );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 247)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 248)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 249)         if json['cpu']['current_temperature'] is None:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 250)             json['cpu']['current_temperature'] = -1
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 251)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 252)             f"""INSERT INTO `{json['id']}` (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 253)                 timestamp,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 254)                 id,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 255)                 percent,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 256)                 clock_speed,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 257)                 temperature
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 258)             ) 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 259)             VALUES (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 260)                 '{json['timestamp']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 261)                 '{json['id']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 262)                 '{json['cpu']['usage_percent']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 263)                 '{json['cpu']['current_clock_speed']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 264)                 '{json['cpu']['current_temperature']}'
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 265)             );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 266)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 267)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 268)         db.commit()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 269)         cursor.close()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 270)         db.close()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 345)     ### GPU ###
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 346)     elif 'gpu' in json:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 347)         cursor.execute( 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 348)             "CREATE DATABASE IF NOT EXISTS gpu;"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 349)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 350)         cursor.execute( 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 351)             "USE gpu;"
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 352)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 353)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 354)             f"""CREATE TABLE IF NOT EXISTS `{json['id']}`(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 355)                     timestamp VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 356)                     id VARCHAR(50),
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 357)                     vram BIGINT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 358)                     frequency BIGINT,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 359)                     temperature INT
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 360)                 );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 361)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 362)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 363)         if json['gpu']['current_frequency'] is None:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 364)             json['gpu']['current_frequency'] = -1
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 365)         if json['gpu']['current_temperature'] is None:
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 366)             json['gpu']['current_temperature'] = -1
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 367)         cursor.execute(
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 368)             f"""INSERT INTO `{json['id']}` (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 369)                 timestamp,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 370)                 id,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 371)                 vram,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 372)                 frequency,
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 373)                 temperature
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 374)             ) 
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 375)             VALUES (
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 376)                 '{json['timestamp']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 377)                 '{json['id']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 378)                 '{json['gpu']['current_vram_usage']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 379)                 '{json['gpu']['current_frequency']}',
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 380)                 '{json['gpu']['current_temperature']}'
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 381)             );
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 382)             """
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 383)         )
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 384)         db.commit()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 385)         cursor.close()
+000000000 (Not Committed Yet 2023-04-13 23:56:45 -0400 386)         db.close()

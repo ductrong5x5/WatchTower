@@ -1,0 +1,51 @@
+h1, h2, h3, ul, dl{
+    color:black;
+}
+
+html {
+        background-image: 
+        linear-gradient(to top, #B9DEED, #DFE7EA)
+      
+}
+.center {
+    display: block;
+    text-align: center;
+    margin: 0 33%;
+    width: auto;
+    padding: 25px 0px 0px 0px;
+  }
+
+.nav ul{
+    margin: 0;
+}
+
+.nav li {
+    display:block;
+}
+
+.nav a {
+    display: inline-block;
+    padding: .5em;
+    color: white;
+    text-decoration: underline;
+}
+
+
+button {
+    margin-top:30px;
+    float:right;
+    height:50px;
+    /*padding: 25px 0px 0px 0px;*/
+}
+.leftButton {
+    margin-top:30px;
+    margin-left: 50px;
+    float:right;
+    height:50px;
+}
+img {
+    float:right;
+    margin-right:10px;
+    margin-left:10px;
+    padding: 25px 0px 0px 0px;
+}

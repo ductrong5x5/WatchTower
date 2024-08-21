@@ -1,0 +1,516 @@
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  1) <!DOCTYPE html>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  2) <html lang="en">
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  3)   <head>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  4)     <meta charset="UTF-8" />
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  5)     <link rel="stylesheet" href="styles.css" />
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  6)     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  7)     <title>Watchtower</title>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  8)     <script type="module" src="/main.js" defer></script>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400  9)     <style>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 10)       .logo.vanilla:hover {
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 11)         filter: drop-shadow(0 0 2em #ffe21c);
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 12)       }
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 13)     </style>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 14)   </head>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 15) 
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 16)   <body>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 17)     <div class="container">
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 18) 
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 19)       <div class="row">
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 20)           <img src="/assets/watchtower.png" class="logo" alt="Tauri logo" />
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 21)         </a>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 22)       </div>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 23) 
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 24)       <div class="grid-container">
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 25) 
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 26)       <div class="footer">
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 27)         <p> Watchtower v0.9 [Operating System] </p>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 28)       </div>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 29) 
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 30)       </div>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 31)      </div>              
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 32)     </div>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 33)   </body>
+9f830d9a5 src/index.html (jtcurlin 2023-04-27 23:50:57 -0400 34) </html>
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  1) const { invoke } = window.__TAURI__.tauri;
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  2) 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  3) async function createGridItems() {
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  4)   const gridContainer = document.querySelector('.grid-container');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  5)   for (let i=0; i<15; i++) {
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  6)     const gridItem = document.createElement('div');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  7)     gridItem.classList.add('grid-item');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  8) 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400  9)     const label = document.createElement('div');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 10)     label.classList.add('grid-item-label');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 11)     label.textContent = 'Placeholder';
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 12) 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 13)     const data = document.createElement('div');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 14)     data.classList.add('grid-item-data');
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 15) 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 16)     // use battery message command to assign battery info string to data.textContent 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 17)     data.textContent = await invoke('get_battery_message'); 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 18)     //else data.textContent = await invoke('get_cpu_percentage'); 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 19) 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 20)     gridItem.appendChild(label);
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 21)     gridItem.appendChild(data);
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 22)     gridContainer.appendChild(gridItem);
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 23)   }
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 24) }
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 25) 
+9f830d9a5 src/main.js (jtcurlin 2023-04-27 23:50:57 -0400 26) document, addEventListener('DOMContentLoaded', createGridItems);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   1) :root {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   2)   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   3)   font-size: 16px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   4)   line-height: 24px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   5)   font-weight: 400;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   6) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   7)   color: #0f0f0f;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   8)   background-color: #f6f6f6;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400   9) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  10)   font-synthesis: none;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  11)   text-rendering: optimizeLegibility;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  12)   -webkit-font-smoothing: antialiased;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  13)   -moz-osx-font-smoothing: grayscale;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  14)   -webkit-text-size-adjust: 100%;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  15) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  16) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  17) /* custom */
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  18) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  19) .grid-item {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  20)   background-color: rgba(179, 176, 176, 0.8);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  21)   border-radius: 4px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  22)   padding: 8px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  23)   display: flex;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  24)   flex-direction: column;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  25)   align-items: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  26)   will-change: filter;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  27)   transition: 0.75s;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  28) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  29) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  30) .grid-item:hover:before {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  31)   content: '';
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  32)   position: absolute;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  33)   top: 50%;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  34)   left: 50%;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  35)   transform: translate(-50%, -50%);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  36)   width: calc(100% + 20px);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  37)   height: calc(100% + 20px);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  38)   border-radius: inherit;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  39)   background: radial-gradient(ellipse at center, #24c8db 0%, rgba(36, 200, 219, 0) 70%);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  40)   z-index: -1;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  41)   opacity: 1;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  42)   transition: opacity 0.3s ease-out;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  43) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  44) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  45) .grid-item:hover {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  46)   filter: brightness(1.2) contrast(1.2);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  47) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  48) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  49) .grid-item:hover:before {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  50)   opacity: 0;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  51)   transition: opacity 0.3s ease-in;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  52) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  53) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  54) .grid-item-label {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  55)   font-weight: bold;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  56)   margin-bottom: 4px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  57) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  58) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  59) .grid-item-data {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  60)   font-size: 14px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  61) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  62) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  63) .grid-container {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  64)   display: grid;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  65)   grid-template-columns: repeat(5, 1fr);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  66)   grid-template-rows: repeat(3, 1fr);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  67)   grid-gap: 12px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  68)   margin-left: 10px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  69)   margin-right: 10px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  70)   margin-bottom: 20px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  71) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  72) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  73) h1 {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  74)   text-align: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  75)   margin-bottom: 15px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  76) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  77) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  78) .row {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  79)   display: flex;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  80)   justify-content: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  81)   margin-bottom: 15px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  82) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  83) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  84) p {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  85)   margin-bottom: 5px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  86)   margin-top: 5px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  87) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  88) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  89) .footer {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  90)   position: fixed;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  91)   bottom: 0;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  92)   left: 0;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  93)   right: 0;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  94)   height: 25px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  95)   margin: 0;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  96)   background-color: #333;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  97)   color: #fff;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  98)   display: flex;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400  99)   justify-content: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 100)   align-items: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 101)   font-size: 12px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 102)   line-height: 20px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 103) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 104) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 105) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 106) .logo {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 107)   height: 14em;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 108)   padding: 0.5em;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 109)   will-change: filter;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 110)   transition: 0.75s;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 111) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 112) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 113) .logo:hover {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 114)   filter: drop-shadow(0 0 2em #24c8db);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 115) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 116) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 117) /* template */
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 118) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 119) .container {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 120)   margin: 0;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 121)   padding-top: 1vh;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 122)   display: flex;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 123)   flex-direction: column;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 124)   justify-content: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 125)   text-align: center;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 126) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 127) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 128) a {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 129)   font-weight: 500;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 130)   color: #646cff;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 131)   text-decoration: inherit;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 132) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 133) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 134) a:hover {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 135)   color: #535bf2;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 136) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 137) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 138) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 139) input,
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 140) button {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 141)   border-radius: 8px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 142)   border: 1px solid transparent;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 143)   padding: 0.6em 1.2em;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 144)   font-size: 1em;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 145)   font-weight: 500;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 146)   font-family: inherit;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 147)   color: #0f0f0f;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 148)   background-color: #ffffff;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 149)   transition: border-color 0.25s;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 150)   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 151) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 152) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 153) button {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 154)   cursor: pointer;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 155) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 156) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 157) button:hover {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 158)   border-color: #396cd8;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 159) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 160) button:active {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 161)   border-color: #396cd8;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 162)   background-color: #e8e8e8;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 163) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 164) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 165) input,
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 166) button {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 167)   outline: none;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 168) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 169) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 170) #greet-input {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 171)   margin-right: 5px;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 172) }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 173) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 174) @media (prefers-color-scheme: dark) {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 175)   :root {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 176)     color: #f6f6f6;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 177)     background-color: #2f2f2f;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 178)   }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 179) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 180)   a:hover {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 181)     color: #24c8db;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 182)   }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 183) 
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 184)   input,
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 185)   button {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 186)     color: #ffffff;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 187)     background-color: #0f0f0f98;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 188)   }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 189)   button:active {
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 190)     background-color: #0f0f0f69;
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 191)   }
+9f830d9a5 src/styles.css (jtcurlin 2023-04-27 23:50:57 -0400 192) }
+e4427962 src-tauri/src/types/battery.rs         (jtcurlin       2023-04-27 23:51:26 -0400 29)     
+fe4427962 src-tauri/src/types/battery.rs         (jtcurlin       2023-04-27 23:51:26 -0400 32) 
+fe4427962 src-tauri/src/types/battery.rs         (jtcurlin       2023-04-27 23:51:26 -0400 33) 
+fe4427962 src-tauri/src/types/gpu.rs         (jtcurlin       2023-04-27 23:51:26 -0400 25) 
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 18) pub fn tauri_get_installed_ram() -> u64 {
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 19)     match RamHello::collect() {
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 20)         Ok(ram_hello) => ram_hello.installed,
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 21)         Err(_) => 0,
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 22)     }
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 23) }
+fe4427962 src-tauri/src/types/ram.rs         (jtcurlin       2023-04-27 23:51:26 -0400 24) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  1) // Prevents additional console window on Windows in release, DO NOT REMOVE!!
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  2) #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  3) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  4) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  5) use tauri::{CustomMenuItem, SystemTrayMenu, SystemTrayMenuItem};
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  6) use tauri::{SystemTray, Manager};
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  7) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  8) use watchtower_sensor::message::Message;
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400  9) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 10) /* 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 11) // command to get the battery message, which is in json form from serde, and then parse it into a string
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 12) #[tauri::command]
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 13) fn get_battery_message() -> String {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 14)     let message = Message::battery().unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 15)     let json = serde_json::to_string(&message).unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 16)     json
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 17) }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 18) */
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 19) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 20) #[tauri::command]
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 21) fn get_battery_message() -> String {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 22)     let message = Message::battery().unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 23)     let json = serde_json::to_string(&message).unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 24)     let value = serde_json::from_str::<serde_json::Value>(&json).unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 25)     let percent = value.get("battery").and_then(|battery| battery.get("percent"));
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 26)     percent.map(|percent| percent.as_u64().unwrap().to_string()).unwrap_or_default()
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 27) }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 28) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 29) #[tauri::command]
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 30) fn get_cpu_percentage() -> String {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 31)     let message = Message::cpu().unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 32)     let json = serde_json::to_string(&message).unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 33)     let value: serde_json::Value = serde_json::from_str(&json).unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 34)     let usage = value["variant"]["usage"].as_f64().unwrap() as u64;
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 35)     usage.to_string()
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 36) }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 37) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 38) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 39) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 40) fn main() {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 41)     // here `"quit".to_string()` defines the menu item id, and the second parameter is the menu item label.
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 42)     let quit = CustomMenuItem::new("quit".to_string(), "Quit Watchtower");
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 43)     let toggle_dash= CustomMenuItem::new("toggle_dash".to_string(), "Toggle Dashboard");
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 44)     let restart = CustomMenuItem::new("restart".to_string(), "Restart Watchtower");
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 45)     let tray_menu = SystemTrayMenu::new()
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 46)       .add_item(toggle_dash)
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 47)       .add_native_item(SystemTrayMenuItem::Separator)
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 48)       .add_item(quit)
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 49)       .add_item(restart);
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 50)       
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 51) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 52)     let tray = SystemTray::new()
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 53)         .with_menu(tray_menu);
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 54)     
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 55) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 56) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 57)     tauri::Builder::default()
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 58)         .system_tray(tray)                           // add system tray component to our Tauri app
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 59)         .on_system_tray_event(|app, event| match event {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 60)             tauri::SystemTrayEvent::MenuItemClick { id, .. } => {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 61)                 match id.as_str() {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 62)                     "quit" => {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 63)                         app.exit(0);
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 64)                     }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 65)                     "toggle_dash" => {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 66)                         if let Some(window) = app.get_window("main") {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 67)                             if window.is_visible().unwrap_or(false) {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 68)                                 window.hide().unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 69)                             } else {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 70)                                 window.show().unwrap();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 71)                             }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 72)                         }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 73)                     },
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 74)                     "restart" => {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 75)                         app.restart()       // broken ATM, needs fix
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 76)                     },
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 77)                     _ => {}
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 78)                 }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 79)             },
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 80)             _ => {}
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 81)         })
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 82)         .invoke_handler(tauri::generate_handler![
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 83)             get_battery_message
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 84)         ])
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 85)         .build(tauri::generate_context!())
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 86)         .expect("error while running tauri application")
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 87)         .run(|_app_handle, event| match event{      // prevent backend from exiting when frontend requests exit
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 88)             tauri::RunEvent::ExitRequested {api, .. } => {
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 89)                 api.prevent_exit();
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 90)             }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 91)             _ => {}
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 92)         });
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 93) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 94) }
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 95) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 96) 
+9f830d9a5 src-tauri/src/watchtower_sensor.rs (jtcurlin 2023-04-27 23:50:57 -0400 97) 
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  1) {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  2)   "build": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  3)     "beforeDevCommand": "",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  4)     "beforeBuildCommand": "",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  5)     "devPath": "../src",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  6)     "distDir": "../src",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  7)     "withGlobalTauri": true
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  8)   },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400  9)   "package": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 10)     "productName": "watchtower-sensor",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 11)     "version": "0.0.0"
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 12)   },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 13)   "tauri": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 14)     "allowlist": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 15)       "all": false,
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 16)       "shell": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 17)         "all": false,
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 18)         "open": true
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 19)       }
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 20)     },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 21)     "systemTray": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 22)       "iconPath": "icons/icon.ico",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 23)       "iconAsTemplate": true
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 24)     },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 25)     "bundle": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 26)       "active": true,
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 27)       "icon": [
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 28)         "icons/32x32.png",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 29)         "icons/128x128.png",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 30)         "icons/128x128@2x.png",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 31)         "icons/icon.icns",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 32)         "icons/icon.ico"
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 33)       ],
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 34)       "identifier": "com.tauri.dev",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 35)       "targets": "all"
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 36)     },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 37)     "security": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 38)       "csp": null
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 39)     },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 40)     "updater": {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 41)       "active": false
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 42)     },
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 43)     "windows": [
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 44)       {
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 45)         "fullscreen": false,
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 46)         "resizable": true,
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 47)         "title": "Watchtower Dashboard",
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 48)         "width": 800,
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 49)         "height": 600
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 50)       }
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 51)     ]
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 52)   }
+9f830d9a5 src-tauri/tauri.conf.json (jtcurlin 2023-04-27 23:50:57 -0400 53) }
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400  8)     // cross compatibility
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin       2023-04-13 20:42:08 -0400 15) 
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 16)     // darwin(macos) compatibility
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 17)     #[cfg(target_os = "macos")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 18)     #[error("Error: {0}")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 19)     GenericError(String),
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 20)     #[cfg(target_os = "macos")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 21)     #[error("IOKit Error, {0}")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin       2023-04-13 20:42:08 -0400 22)     KitError(String),
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 23)     #[cfg(target_os = "macos")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 24)     #[error("Battery error")]
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin       2023-04-13 20:42:08 -0400 25)     BatteryError(#[from] battery::Error),
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 26)     #[cfg(target_os = "macos")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 27)     #[error("Battery error")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 28)     ProcessorError(String),
+913dfe8ad watchtower-sensor/src/error.rs (jtcurlin       2023-04-13 20:42:08 -0400 29) 
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 30)     // partial compatibility 
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 31)     #[cfg(not(linux))]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 32)     #[error("System tray error")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 33)     Tray(#[from] tray_item::TIError),
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 34)     #[cfg(not(target_os = "macos"))]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 35)     #[error("os error")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 36)     Os(#[from] OsError),
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 37)     #[cfg(windows)]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 38)     #[error("WMI error")]
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 39)     Wmi(#[from] wmi::WMIError),
+46d4a0f29 watchtower-sensor/src/error.rs (jtcurlin       2023-04-27 11:24:41 -0400 40) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 174) // NETWORK_INFO
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 175) pub(crate) fn network_info() -> crate::Result<HashMap<String, Interface>> {
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 176)     let mut out = HashMap::new();
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 177) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 178)     let _interfaces = get_interfaces();
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 179) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 180)     for _interface in _interfaces {
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 181)         
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 182)         let mac_address = match _interface.mac_addr {
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 183)             Some(mac_addr) => {
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 184)                 let mac_addr_bytes = mac_addr.octets();
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 185)                 format!(
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 186)                     "{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 187)                     mac_addr_bytes[0],
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 188)                     mac_addr_bytes[1],
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 189)                     mac_addr_bytes[2],
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 190)                     mac_addr_bytes[3],
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 191)                     mac_addr_bytes[4],
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 192)                     mac_addr_bytes[5],
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 193)                 )
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 194)             }
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 195)             None => "00:00:00:00:00:00".to_string(),
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 196)         }; 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 197) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 198)         let name = _interface.name;
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 199) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 200)         let description = _interface.description.unwrap_or("Interface".to_string());
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 201) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 202)         let r#type = match _interface.if_type {
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 203)             default_net::interface::InterfaceType::Ethernet => InterfaceType::Ethernet,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 204)             default_net::interface::InterfaceType::GigabitEthernet => InterfaceType::Ethernet,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 205)             default_net::interface::InterfaceType::IPOverAtm => InterfaceType::Ethernet,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 206)             default_net::interface::InterfaceType::Ethernet3Megabit => InterfaceType::Ethernet,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 207)             default_net::interface::InterfaceType::Isdn => InterfaceType::Ethernet,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 208)             default_net::interface::InterfaceType::Ppp => InterfaceType::Loopback,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 209)             default_net::interface::InterfaceType::Loopback => InterfaceType::Loopback,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 210)             default_net::interface::InterfaceType::Wireless80211 => InterfaceType::WiFi,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 211)             default_net::interface::InterfaceType::FastEthernetFx => InterfaceType::WiFi,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 212)             _ => InterfaceType::Other,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 213)         };
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 214) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 215)         let ip_addresses: Vec<String> = _interface
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 216)         .ipv4
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 217)         .iter()
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 218)         .map(|ipv4_net| ipv4_net.addr.to_string())
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 219)         .chain(
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 220)             _interface
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 221)                 .ipv6
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 222)                 .iter()
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 223)                 .map(|ipv6_net| ipv6_net.addr.to_string()),
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 224)         )
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 225)         .collect();
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 226) 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 227)         let tx = 0;
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 228)         let rx = 0;
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 229)             
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 230)         match r#type {  
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 231)             InterfaceType::Other => continue,   // (temp?) only collect interfaces of known types
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 232)             _ => {
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 233)                     out.insert(
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 234)                         mac_address,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 235)                         Interface{ 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 236)                             name,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 237)                             description,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 238)                             r#type,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 239)                             ip_addresses,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 240)                             rx,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 241)                             tx,
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 242)                         },
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 243)                     ); 
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 244)             }
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 245)         }
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 246)     }                
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 247)     
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 248)     Ok(out)
+46d4a0f29 watchtower-sensor/src/sys/darwin.rs (jtcurlin       2023-04-27 11:24:41 -0400 249) }

@@ -1,0 +1,33 @@
+int main()
+{
+  unsigned int k[4];
+  unsigned char *cp;
+  unsigned int *ip;
+  int i;
+
+  cp = (unsigned char *) k;
+  ip = k+2;
+  for (i = 0; i &lt; 16; i++) {
+    cp[i] = i*16 + 15-i;
+  }
+
+  printf("0x%x\n", cp[3]);   /* Output line 1. */
+  printf("0x%x\n", cp[7]);   /* Output line 2. */
+  printf("0x%x\n", k[0]);    /* Output line 3. */
+  printf("0x%x\n", *ip);     /* Output line 4. */
+
+  memcpy(cp+2, cp+10, 4);
+  printf("0x%x\n", cp[3]);    /* Output line 5. */
+  printf("0x%x\n", cp[4]);    /* Output line 6. */
+  printf("0x%x\n", k[0]);     /* Output line 7. */
+  printf("0x%x\n", k[1]);     /* Output line 8. */
+
+  cp += 12;
+  ip = (unsigned int *) cp;
+  i = ip - k;
+  printf("%d\n", i);          /* Output line 9. */
+
+  i = cp - (unsigned char *) k;
+  printf("%d\n", i);          /* Output line 10. */
+  return 0;
+}  

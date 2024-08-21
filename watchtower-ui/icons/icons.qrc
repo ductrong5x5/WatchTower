@@ -1,0 +1,321 @@
+<RCC>
+  <qresource prefix="image">
+    <file>IMG_0393.PNG</file>
+    <file>IMG_0393 (1).png</file>
+    <file>5172658.jpg</file>
+    <file>icons.qrc</file>
+    <file>icons_rc.py</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-cryptocurrency-global-50.png</file>
+    <file>icons8-cryptocurrency-global-64.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-globe-checked-64.png</file>
+    <file>icons8-gpu-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-user-50.png</file>
+    <file>icons8-user-100.png</file>
+    <file>icons8-vga-card-96.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract gold light line slash_1209439.jpg</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>—Pngtree—modern double color futuristic neon_1181573.jpg</file>
+    <file>Questions-3.html</file>
+    <file>5172658.jpg</file>
+    <file>icons.qrc</file>
+    <file>icons_rc.py</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-cryptocurrency-global-64.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-globe-checked-64.png</file>
+    <file>icons8-gpu-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-user-50.png</file>
+    <file>icons8-user-100.png</file>
+    <file>icons8-vga-card-96.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract gold light line slash_1209439.jpg</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>—Pngtree—modern double color futuristic neon_1181573.jpg</file>
+    <file>Questions-3.html</file>
+    <file>5172658.jpg</file>
+    <file>icons.qrc</file>
+    <file>icons_rc.py</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-globe-checked-64.png</file>
+    <file>icons8-gpu-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-user-50.png</file>
+    <file>icons8-user-100.png</file>
+    <file>icons8-vga-card-96.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract gold light line slash_1209439.jpg</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>—Pngtree—modern double color futuristic neon_1181573.jpg</file>
+    <file>Questions-3.html</file>
+    <file>5172658.jpg</file>
+    <file>icons.qrc</file>
+    <file>icons_rc.py</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-gpu-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-user-50.png</file>
+    <file>icons8-user-100.png</file>
+    <file>icons8-vga-card-96.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract gold light line slash_1209439.jpg</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>—Pngtree—modern double color futuristic neon_1181573.jpg</file>
+    <file>Questions-3.html</file>
+    <file>5172658.jpg</file>
+    <file>icons.qrc</file>
+    <file>icons_rc.py</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-gpu-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-user-50.png</file>
+    <file>icons8-user-100.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract gold light line slash_1209439.jpg</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>—Pngtree—modern double color futuristic neon_1181573.jpg</file>
+    <file>Questions-3.html</file>
+    <file>icons8-user-50.png</file>
+    <file>icons8-user-100.png</file>
+    <file>5172658.jpg</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+    <file>5172658.jpg</file>
+    <file>5172658.jpg</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>icons.qrc</file>
+    <file>icons_rc.py</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-close-16.png</file>
+    <file>5172658.jpg</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-watch-tower-64.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>—Pngtree—abstract technology background line high_1243083.jpg</file>
+  </qresource>
+  <qresource prefix="s">
+    <file>—Pngtree—abstract gold light line slash_1209439.jpg</file>
+    <file>5172658.jpg</file>
+    <file>—Pngtree—modern double color futuristic neon_1181573.jpg</file>
+  </qresource>
+</RCC>

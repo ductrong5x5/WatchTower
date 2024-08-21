@@ -1,0 +1,85 @@
+<RCC>
+  <qresource prefix="image">
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-search-more-60.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>icons8-online-activity-64 - Copy.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-full-battery-60.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-microchip-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-online-activity-64.png</file>
+    <file>icons8-processor-16.png</file>
+    <file>icons8-proximity-sensor-50.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-stack-50.png</file>
+    <file>icons8-system-information-50.png</file>
+    <file>icons8-wi-fi-connected-50.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-questions-16.png</file>
+    <file>icons8-questions-30.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-menu-16.png</file>
+    <file>icons8-menu-50.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-ecg-16.png</file>
+    <file>icons8-ecg-64.png</file>
+    <file>icons8-close-16.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-restore-down-16.png</file>
+    <file>icons8-minimize-window-16.png</file>
+    <file>icons8-close-16.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>icons/icons8-close-16.png</file>
+    <file>icons/icons8-ecg-16.png</file>
+    <file>icons/icons8-ecg-64.png</file>
+    <file>icons/icons8-full-battery-60.png</file>
+    <file>icons/icons8-menu-16.png</file>
+    <file>icons/icons8-menu-50.png</file>
+    <file>icons/icons8-microchip-50.png</file>
+    <file>icons/icons8-minimize-window-16.png</file>
+    <file>icons/icons8-online-activity-64 - Copy.png</file>
+    <file>icons/icons8-online-activity-64.png</file>
+    <file>icons/icons8-processor-16.png</file>
+    <file>icons/icons8-proximity-sensor-50.png</file>
+    <file>icons/icons8-questions-16.png</file>
+    <file>icons/icons8-questions-30.png</file>
+    <file>icons/icons8-restore-down-16.png</file>
+    <file>icons/icons8-search-more-60.png</file>
+    <file>icons/icons8-stack-50.png</file>
+    <file>icons/icons8-system-information-50.png</file>
+    <file>icons/icons8-wi-fi-connected-50.png</file>
+  </qresource>
+  <qresource prefix="newPrefix"/>
+</RCC>

@@ -1,0 +1,4 @@
+﻿userid,cpu_count,cpu_perf,cpu_main,totalram,available_ram,used_ram,free_ram,ram_usage,battery,bat_percent,sys_info
+du1,16,2%,8,15,8,7,8,15,nobat,100,Window
+du2,16,2%,8,15,8,7,8,15,nobat,100,Window
+du3,16,2%,8,15,8,7,8,15,nobat,100,Window

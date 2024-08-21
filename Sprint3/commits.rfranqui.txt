@@ -1,0 +1,77 @@
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  1) const express = require("express");
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  2) const app = express();
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  3) const mysql = require("mysql2");
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  4) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  5) const db = mysql.createConnection({
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  6)     user: "root",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  7)     host: "104.238.215.106",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  8)     password: "Huffmand3coding",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  9)     database: "machines"
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 10) });
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 11) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 12) db.connect(function (err) {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 13)   if (err) throw err;
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 14)   console.log('Connected to MySQL database');
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 15) });
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 16) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 17) app.get('/Graphs', function (req, res) {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 18)     connection.query('SELECT * FROM machines.machines', function (error, results) {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 19)       if (error) throw error;
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 20)       res.send(results);
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 21)     });
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 22)   });
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 23) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 24) app.listen(3002, () => {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 25)     console.log('Conected!');
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 26) })
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 27) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 28) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 29) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 30) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 31) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 32) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 33) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 34) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 35) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  1) {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  2)   "name": "server",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  3)   "version": "1.0.0",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  4)   "description": "",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  5)   "main": "index.js",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  6)   "scripts": {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  7)     "test": "echo \"Error: no test specified\" && exit 1"
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  8)   },
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  9)   "author": "",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 10)   "license": "ISC",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 11)   "dependencies": {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 12)     "express": "^4.18.2",
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 13)     "mysql2": "^3.2.0"
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 14)   }
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 15) }
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  1) import axios from 'axios';
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  2) import React from 'react'
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  3) function fetchData() {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  4)     axios.get('http://localhost:3002/api/data')
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  5)       .then((response) => {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  6)         console.log(response.data);
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  7)       })
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  8)       .catch((error) => {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400  9)         console.log(error);
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 10)       });
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 11)   }
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 12) 
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 13)   
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 14)   function getdata() {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 15)     useEffect(() => {
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 16)         fetchData();
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 17)       }, []);
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 18)     
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 19)       return (
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 20)         <div>
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 21)             
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 22)         </div>
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 23)       )
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 24)   }
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 25)   
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 26)   export default getdata
+f3d4e9005 (RJFranqui 2023-04-13 08:48:40 -0400 27)   

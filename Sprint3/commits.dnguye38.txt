@@ -1,0 +1,260 @@
+$ git blame connectall.php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  1) <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  2)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  3) // Connect to MySQL server
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  4) $servername = "104.238.215.106";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  5) $username = "root";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  6) $password = "Huffmand3coding";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  7) $conn = mysqli_connect($servername, $username, $password);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  8)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  9) // Check connection
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 10) if ($conn->connect_error) {
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 11)     die("Connection failed: " . $conn->connect_error);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 12) }
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 13)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 14)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 15) ?>
+
+$ git blame Data.php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   1) <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   2)     include 'connectall.php';
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   3) ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   4)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   5) <DOCTYPE! html>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   6)     <html>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   7)         <head>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   8)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400   9)                  include 'graph.php';
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  10)             ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  11)             <title>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  12)                 DATA
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  13)             </title>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  14)             <meta name = "viewport" content ="width=device-width, initial - scale =1">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  15)             <link rel="stylesheet" href="styles.css">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  16)             <?php include 'graph.php'; ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  17)         </head>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  18)         <body>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  19)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  20)             <h2>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  21)                 <section class = "header">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  22)                     <nav>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  23)                         <div class="nav-links">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  24)                             <a href="watchTower.html"class="hero-btn">Home page</a></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  25)                         </div>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  26)                     </nav>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  27)                 </section>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  28)                 DATA
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  29)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  30)             </h2>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  31)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  32)                 date_default_timezone_set("America/New_York");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  33)                 echo "The time is " . date("h:i:s A");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  34)             ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  35)             <hr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  36)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  37)             $machine_rows = ($conn ->query("SELECT * FROM machines.machines"))->fetch_assoc();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  38)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  39)             // $machines_sql = "SELECT * FROM machines.machines";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  40)             // $machines_result = $conn ->query($machines_sql);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  41)             // $machine_rows = $machines_result->fetch_assoc();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  42)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  43)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  44)                    ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  45)             <button onclick="switchUser($ID,+1)">Next User</button>
+:
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  30)             </h2>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  31)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  32)                 date_default_timezone_set("America/New_York");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  33)                 echo "The time is " . date("h:i:s A");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  34)             ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  35)             <hr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  36)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  37)             $machine_rows = ($conn ->query("SELECT * FROM machines.machines"))->fetch_assoc();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  38)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  39)             // $machines_sql = "SELECT * FROM machines.machines";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  40)             // $machines_result = $conn ->query($machines_sql);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  41)             // $machine_rows = $machines_result->fetch_assoc();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  42)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  43)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  44)                    ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  45)             <button onclick="switchUser($ID,+1)">Next User</button>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  46)             <button onclick="switchUser($ID,-1)">Prev User</button>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  47)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  48)             <h2>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  49)                 User ID: <?php $ID = $machine_rows["id"]; echo $machine_rows["id"]?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  50)             </h2>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  51)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  52)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  53)             <nav class="nav main-nav">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  54)                 <ul>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  55)                     <li>System: <?php echo $machine_rows["os_type"]?></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  56)                     <li>Version: <?php echo $machine_rows["edition"].'--'.$machine_rows["version_semantic"].'--'.$machine_rows["bitness"]  ?> </li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  57)                     <li>Timestamp: <?php echo $machine_rows["timestamp"]?></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  58)                     <li>CPU : <?php echo $machine_rows["cpu_core_count"].'-core, '.$machine_rows["cpu_thread_count"].'thread'?></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  59)                     <li>RAM: <?php $totalram = $machine_rows["ram_installed"]; echo ($machine_rows["ram_installed"]/1024/1024/1024).' GB' ?></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  60)                     <?php $GPU_name =  $machine_rows["gpu"]; ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  61)                     <li>GPU: <?php echo $machine_rows["gpu"] ?></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  62)                     <li>Battery installed:  <?php if ($machine_rows['has_battery'] === "True") echo "Yes (Mobile device)"; else echo "No (Desktop)"; ?></li>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  63)                     <div id="chart_div"></div>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  64)                 </ul>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  65)             </nav>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  66)             <hr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  67)              <!--First part https://www.youtube.com/watch?v=3GsKEtBcGTk -->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  68)             <h2> CPU and RAM</h2>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  69)             <!--Label and table of data -->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  70)             <table>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  71)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  72)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  73)                 <caption>CPU</caption>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  74)                 <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  75)                     <!--Label-->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  76)                     <th>CPU Core </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  77)                     <th>CPU Thread </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  78)                     <th>CPU_Performance </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  79)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  80)                 </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  81)                 <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  82)                     <!--Data to put in -->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  83)                     <td> <?php echo $machine_rows["cpu_core_count"] ?></td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  84)                     <td> <?php echo $machine_rows["cpu_thread_count"] ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  85)                     <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  86)                         $cpu_result=($conn ->query("SELECT * FROM `cpu`.`$ID`"));
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  87)                         mysqli_data_seek($cpu_result, $cpu_result->num_rows - 1);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  88)                         $cpu_row = $cpu_result->fetch_assoc();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  89)                     ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  90)                     <td> <?php echo $cpu_row["percent"] ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  91)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  92)                 </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  93)             </table>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  94)             <!--Div that will hold the pie chart-->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  95)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  96)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  97)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  98)            <!--Label and table of data -->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  99)            <table>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 100)                <caption>RAM</caption>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 101)                <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 102)                    <!--Label-->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 103)                    <th>Total Ram </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 104)                    <th>Used Ram </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 105)                    <th>Available Ram </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 106)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 107)                </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 108)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 109)                <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 110)                    <!--Data to put in -->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 111)                    <td> <?php echo $totalram/(1024**3).' GB' ?></td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 112)                    <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 113)                         $ram_results=($conn ->query("SELECT * FROM `ram`.`$ID`"));
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 114)                         mysqli_data_seek($ram_results, $ram_results->num_rows - 1);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 115)                         $ram_row = $ram_results->fetch_assoc();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 116)                     ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 117)                    <td><?php echo number_format($ram_row["ram_used"]/(1024**3),3) .' GB'?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 118)                    <td><?php echo  $totalram/(1024**3)  -  number_format($ram_row["ram_used"]/(1024**3),3).' GB' ?></td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 119)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 120)                </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 121)             </table>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 122)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 123)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 124)                 $battery_result=($conn ->query("SELECT * FROM `battery`.`$ID`"));
+...skipping...
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 210)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 211)                     // Add the string to the new array
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 212)                     $unique_data_netinter[] = $stringified_net_inter_row;
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 213)                 }
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 214)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 215)                 // Remove duplicates from the new array
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 216)                 $unique_data_netinter = array_unique($unique_data_netinter);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 217)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 218)                 // Create a new array to store the unique nested arrays
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 219)                 $final_data_netinter = array();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 220)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 221)                 // Loop through each string in the new array
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 222)                 foreach ($unique_data_netinter as $stringified_net_inter_row) {
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 223)                     // Convert the string back to a nested array
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 224)                     $net_inter_row = unserialize($stringified_net_inter_row);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 225)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 226)                     // Add the nested array to the new array
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 227)                     $final_data_netinter[] = $net_inter_row;
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 228)                 }
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 229)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 230)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 231)                 // foreach($final_data_netinter as $value)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 232)                 // echo $value['description'] . '--' . $value['type'] . '--' . $value['ip'] . "\n";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 233)                 // echo "\n";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 234)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 235)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 236)             ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 237)             <table>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 238)                <caption>Network interface stats</caption>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 239)                <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 240)                    <!--Label-->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 241)                    <th>description </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 242)                    <th>type </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 243)                    <th>ip </th>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 244)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 245)                </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 246)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 247)                 <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 248)                     foreach($final_data_netinter as $value)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 249)                         echo "<tr><td>".$value['description'] ."</td><td>" . $value['type'] . "</td><td>". $value['ip'] ."</td></tr>";
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 250)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 251)                 ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 252)             <!-- </table>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 253)             <?php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 254)                 $contest = mysqli_connect("104.238.215.106","root","Huffmand3coding","test");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 255)                 $rows = mysqli_query($contest, "SELECT * FROM tb_data");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 256)             ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 257)             <br>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 258)             <table >
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 259)                 <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 260)                     <td># </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 261)                     <td>Name </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 262)                     <td>Email </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 263)                     <td>Age </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 264)                     <td>Country </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 265)                 </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 266)                 <?php foreach($rows as $rows) : ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 267)                 <tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 268)                     <td> <?php echo $rows["#"]; ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 269)                     <td> <?php echo $rows["Name"]; ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 270)                     <td> <?php echo $rows["Email"]; ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 271)                     <td> <?php echo $rows["Age"]; ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 272)                     <td> <?php echo $rows["Country"]; ?> </td>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 273)                 </tr>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 274)                 <?php endforeach; ?>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 275)             </table> -->
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 276)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 277)         </body>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 278)     </html>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 279)
+
+$ git blame index.php
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  1)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  2) <DOCTYPE! html>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  3) <html lang="en" dir="ltr">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  4)     <head>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  5)             <meta charset = "utf-8">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  6)             <title>Watchtower</title>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  7)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  8)     </head>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400  9)     <body >
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 10)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 11)             <div id ="table"></div>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 12)             <script type="text/javascript">
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 13)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 14)                     function table(){
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 15)                             const xhttp = new XMLHttpRequest();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 16)                             xhttp.onload =function(){
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 17)                                     document.getElementById("table").innerHTML = this.responseText;
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 18)                             }
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 19)                             xhttp.open("GET","data.php");
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 20)                             xhttp.send();
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 21)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 22)                     }
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 23)                     setInterval(function(){table();},1000);
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 24)             </script>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 25)
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 26)     </body>
+538bc2b2 (ductrong5x5 2023-04-13 23:01:56 -0400 27) </html>
+

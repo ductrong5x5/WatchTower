@@ -1,0 +1,620 @@
+25070988d watchtower-sensor/src/bin/sensor.rs (jtcurlin    2023-05-12 12:46:02 -0400 78) 
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 215)         let mut ip_addresses: Vec<String> = _interface
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 227)         if ip_addresses.is_empty() {
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 228)             ip_addresses.push("0".to_string());
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 229)         }
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 230) 
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 278) 
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 282)     let temperature = get_m1_package_temperature().unwrap_or(None);
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 283)     
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 285)         current_frequency: first_frequency.or(Some(0)),
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 286)         current_vram_usage: 0 as u64,
+25070988d watchtower-sensor/src/sys/darwin.rs (jtcurlin    2023-05-12 12:46:02 -0400 287)         current_temperature: temperature.or(Some(0.0)), 987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  1) <!DOCTYPE html>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  2) <html lang="en">
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  3)   <head>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  4)     <meta charset="UTF-8" />
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  5)     <link rel="stylesheet" href="styles.css" />
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  6)     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  7)     <title>Watchtower</title>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  8)     <script type="module" src="/main.js" defer></script>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400  9)     <style>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 10)       .logo.vanilla:hover {
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 11)         filter: drop-shadow(0 0 2em #ffe21c);
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 12)       }
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 13)     </style>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 14)     
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 15) 
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 16)   <body>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 17)     <div class="container">
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 18) 
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 19)       <div class="row">
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 20)           <img src="/assets/watchtower.png" class="logo" alt="Tauri logo" />
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 21)           <div class="console-container">
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 22)             <pre class="console-output"></pre>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 23)           </div
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 24)         </a>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 25)       </div>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 26) 
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 27)       <div class="grid-container">
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 28) 
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 29)       <div class="footer">
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 30)         <p> Watchtower v0.92 [ macOS 13.3.1 (22E261) ] </p>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 31)       </div>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 32) 
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 33)       </div>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 34)      </div>              
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 35)     </div>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 36)   </body>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 37) </html>
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 38) 
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 39) <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />       <!-- /* icons */ -->
+^987971a2 src/index.html (jtcurlin 2023-05-04 09:38:45 -0400 40) <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>                    <!-- /* drag and drop / grid snapping */ -->
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   1) class SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   2)   constructor(labelText, dataText) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   3)     this.labelText = labelText;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   4)     this.dataText = dataText;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   5)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   6) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   7)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   8)     const gridItem = document.createElement("div");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400   9)     gridItem.classList.add("grid-item");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  10) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  11)     const label = document.createElement("div");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  12)     label.classList.add("grid-item-label");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  13)     label.textContent = this.labelText;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  14) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  15)     const data = document.createElement("div");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  16)     data.classList.add("grid-item-data");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  17)     data.textContent = this.dataText;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  18) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  19)     gridItem.appendChild(label);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  20)     gridItem.appendChild(data);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  21) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  22)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  23)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  24) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  25)   addToGrid(gridContainer) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  26)     const gridItem = this.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  27)     gridContainer.appendChild(gridItem);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  28)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  29) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  30) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  31) class BatteryPercentageBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  32)   constructor(labelText, dataText, batteryPercentage) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  33)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  34)     this.batteryPercentage = batteryPercentage;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  35)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  36) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  37)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  38)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  39)     gridItem.classList.add("battery-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  40) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  41)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  42) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  43)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  44)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  45) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  46) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  47) class DiskUsageBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  48)   constructor(labelText, dataText, diskUsage, diskCapacity) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  49)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  50)     this.diskUsage = diskUsage;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  51)     this.diskCapacity = diskCapacity;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  52)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  53) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  54)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  55)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  56)     gridItem.classList.add("disk-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  57) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  58)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  59) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  60)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  61)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  62) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  63) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  64) class MemoryUsageBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  65)   constructor(labelText, dataText, ramUsage, ramCapacity) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  66)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  67)     this.ramUsage = ramUsage;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  68)     this.ramCapacity = ramCapacity;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  69)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  70) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  71)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  72)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  73)     gridItem.classList.add("ram-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  74) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  75)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  76) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  77)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  78)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  79) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  80) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  81) class CpuUsageBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  82)   constructor(labelText, dataText, cpuUsage) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  83)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  84)     this.cpuUsage = cpuUsage;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  85)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  86) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  87)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  88)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  89)     gridItem.classList.add("cpu-usage-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  90) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  91)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  92) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  93)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  94)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  95) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  96) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  97) class CpuFrequencyBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  98)   constructor(labelText, dataText, cpuFrequency) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400  99)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 100)     this.cpuFrequency = cpuFrequency;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 101)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 102) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 103)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 104)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 105)     gridItem.classList.add("cpu-frequency-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 106) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 107)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 108) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 109)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 110)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 111) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 112) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 113) class GpuUsageBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 114)   constructor(labelText, dataText, gpuUsage) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 115)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 116)     this.gpuUsage = gpuUsage;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 117)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 118) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 119)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 120)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 121)     gridItem.classList.add("gpu-usage-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 122) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 123)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 124) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 125)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 126)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 127) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 128) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 129) class GpuFrequencyBox extends SensorBox {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 130)   constructor(labelText, dataText, gpuFrequency) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 131)     super(labelText, dataText);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 132)     this.gpuFrequency = gpuFrequency;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 133)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 134) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 135)   createGridItem() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 136)     const gridItem = super.createGridItem();
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 137)     gridItem.classList.add("gpu-frequency-box");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 138) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 139)     // can add custom icon here
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 140) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 141)     return gridItem;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 142)   }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 143) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 144) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 145) const consoleContainer = document.querySelector(".console-container");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 146) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 147) const addConsoleLine = (line) => {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 148)   const consoleLine = document.createElement("pre");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 149)   consoleLine.classList.add("console-output");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 150)   consoleLine.textContent = `➜ ${line}`; // Add the arrow symbol before the line
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 151)   consoleContainer.querySelector(".console-content").prepend(consoleLine);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 152) };
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 153) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 154) document.addEventListener("DOMContentLoaded", () => {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 155)   const consoleContent = document.createElement("div");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 156)   consoleContent.classList.add("console-content");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 157)   consoleContainer.appendChild(consoleContent);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 158) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 159)   const placeholderLines = [
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 160)     "05_04_23:23_59 : Watchtower Server connection initiated [255.255.255.255:8888]",
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 161)     "05_04_23:23_59 : Data feed started at an interval of [5] seconds",
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 162)     "05_04_23:23_59 : Error: Failed to fetch GPU frequency value on last delivery",
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 163)   ];
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 164) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 165)   placeholderLines.forEach((line) => addConsoleLine(line));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 166) });
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 167) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 168) // Create instances of each sensor box in the global scope
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 169) const batteryPercentageBox = new BatteryPercentageBox("Battery", "90%", 90);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 170) const diskUsageBox1 = new DiskUsageBox("Disk1", "50% (500GB/1TB)", 50, 1000);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 171) const diskUsageBox2 = new DiskUsageBox("Disk2", "20% (200GB/1TB)", 20, 1000);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 172) const memoryUsageBox = new MemoryUsageBox("RAM", "60% (6GB/10GB)", 60, 10000);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 173) const cpuUsageBox = new CpuUsageBox("CPU Usage", "70%", 70);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 174) const cpuFrequencyBox = new CpuFrequencyBox("CPU Frequency", "3.5 GHz", 3500);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 175) const gpuUsageBox = new GpuUsageBox("GPU Usage", "45%", 45);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 176) const gpuFrequencyBox = new GpuFrequencyBox("GPU Frequency", "1.2 GHz", 1200);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 177) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 178) document.addEventListener("DOMContentLoaded", () => {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 179)   const gridContainer = document.querySelector(".grid-container");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 180) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 181)   // Add sensor boxes to the grid
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 182)   batteryPercentageBox.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 183)   diskUsageBox1.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 184)   diskUsageBox2.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 185)   memoryUsageBox.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 186)   cpuUsageBox.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 187)   gpuUsageBox.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 188)   cpuFrequencyBox.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 189)   gpuFrequencyBox.addToGrid(gridContainer);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 190) });
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 191) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 192) document.addEventListener("DOMContentLoaded", function() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 193)   const gridContainer = document.querySelector(".grid-container");
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 194)   new Sortable(gridContainer, {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 195)     animation: 150,
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 196)     ghostClass: "sortable-ghost", // Class for the drop placeholder
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 197)     dragClass: "sortable-drag", // Class for the dragging item
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 198)     forceFallback: false // Disable the native HTML5 drag-and-drop API
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 199)   });
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 200) });
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 201) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 202) // Helper function to generate random numbers within a range
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 203) function getRandomArbitrary(min, max) {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 204)   return Math.random() * (max - min) + min;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 205) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 206) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 207) function updateSensorData() {
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 208)   // Randomly generate new values for each box
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 209)   const batteryPercentage = Math.round(getRandomArbitrary(0, 100));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 210)   const diskUsage1 = Math.round(getRandomArbitrary(0, 1000));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 211)   const diskUsage2 = Math.round(getRandomArbitrary(0, 1000));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 212)   const ramUsage = Math.round(getRandomArbitrary(0, 10000));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 213)   const cpuUsage = Math.round(getRandomArbitrary(0, 100));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 214)   const cpuFrequency = getRandomArbitrary(2, 4);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 215)   const gpuUsage = Math.round(getRandomArbitrary(0, 100));
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 216)   const gpuFrequency = getRandomArbitrary(0.5, 2);
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 217) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 218)   // Update the DOM elements
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 219)   const gridItemDataElements = document.querySelectorAll('.grid-item-data');
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 220)   
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 221)   gridItemDataElements[0].textContent = `${batteryPercentage}%`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 222)   gridItemDataElements[1].textContent = `${(diskUsage1 / 10)}% (${diskUsage1}GB/1TB)`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 223)   gridItemDataElements[2].textContent = `${(diskUsage2 / 10)}% (${diskUsage2}GB/1TB)`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 224)   gridItemDataElements[3].textContent = `${(ramUsage / 100)}% (${ramUsage}MB/10GB)`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 225)   gridItemDataElements[4].textContent = `${cpuUsage}%`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 226)   gridItemDataElements[5].textContent = `${gpuUsage}%`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 227)   gridItemDataElements[6].textContent = `${cpuFrequency.toFixed(1)} GHz`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 228)   gridItemDataElements[7].textContent = `${gpuFrequency.toFixed(1)} GHz`;
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 229) }
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 230) 
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 231) // Fetch data every second (1000 ms)
+^987971a2 src/main.js (jtcurlin 2023-05-04 09:38:45 -0400 232) setInterval(updateSensorData, 1000);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   1) :root {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   2)   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   3)   font-size: 16px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   4)   line-height: 24px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   5)   font-weight: 400;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   6) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   7)   color: #0f0f0f;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   8)   background-color: #f6f6f6;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400   9) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  10)   font-synthesis: none;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  11)   text-rendering: optimizeLegibility;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  12)   -webkit-font-smoothing: antialiased;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  13)   -moz-osx-font-smoothing: grayscale;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  14)   -webkit-text-size-adjust: 100%;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  15) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  16) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  17) /* custom */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  18) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  19) body {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  20)   -webkit-user-select: none; /* Safari */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  21)   -moz-user-select: none; /* Firefox */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  22)   -ms-user-select: none; /* Internet Explorer/Edge */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  23)   user-select: none; /* Chrome and other browsers */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  24) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  25) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  26) .grid-item {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  27)   background-color: rgba(151, 149, 149, 0.8);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  28)   border-radius: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  29)   padding: 8px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  30)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  31)   flex-direction: column;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  32)   align-items: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  33)   will-change: filter;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  34)   transition: 0.75s;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  35)   user-select: none;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  36)   cursor: pointer;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  37)   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  38) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  39) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  40) .grid-item:hover {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  41)   filter: brightness(1.1) contrast(1.1);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  42)   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  43)   transform: translateY(-2px);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  44)   transition: all 0.3s ease;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  45) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  46) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  47) .grid-item:hover:before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  48)   content: none;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  49) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  50) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  51) .grid-item-label {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  52)   font-weight: bold;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  53)   margin-bottom: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  54) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  55) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  56) .grid-item-data {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  57)   font-size: 14px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  58) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  59) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  60) .grid-container {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  61)   display: grid;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  62)   grid-template-columns: repeat(5, 1fr);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  63)   grid-template-rows: repeat(3, 1fr);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  64)   grid-gap: 12px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  65)   margin-left: 10px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  66)   margin-right: 10px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  67)   margin-bottom: 20px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  68) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  69) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  70) h1 {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  71)   text-align: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  72)   margin-bottom: 15px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  73) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  74) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  75) .row {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  76)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  77)   justify-content: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  78)   margin-bottom: 15px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  79) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  80) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  81) p {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  82)   margin-bottom: 5px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  83)   margin-top: 5px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  84) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  85) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  86) .footer {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  87)   position: fixed;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  88)   bottom: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  89)   left: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  90)   right: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  91)   height: 25px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  92)   margin: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  93)   background-color: #333;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  94)   color: #fff;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  95)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  96)   justify-content: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  97)   align-items: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  98)   font-size: 12px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400  99)   line-height: 20px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 100) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 101) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 102) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 103) .logo {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 104)   height: 14em;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 105)   padding: 0.5em;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 106)   will-change: filter;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 107)   transition: 0.75s;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 108) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 109) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 110) .logo:hover {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 111)   filter: drop-shadow(0 0 2em #24c8db);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 112) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 113) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 114) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 115) /* sensor component configs */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 116) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 117) .battery-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 118)   color: #24c8db; /* Apply the same color as hover */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 119) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 120) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 121) .battery-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 122)   content: '\f240'; /* Add the Font Awesome battery icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 123)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 124)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 125)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 126) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 127) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 128) .disk-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 129)   color: #646cff; /* Apply the same color as links */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 130) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 131) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 132) .disk-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 133)   content: '\f0a0'; /* Add the Font Awesome disk icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 134)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 135)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 136)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 137) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 138) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 139) .ram-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 140)   color: #3eaf7c;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 141) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 142) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 143) .ram-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 144)   content: '\f538'; /* Add the Font Awesome RAM icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 145)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 146)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 147)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 148) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 149) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 150) .cpu-usage-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 151)   color: #f39c12;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 152) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 153) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 154) .cpu-usage-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 155)   content: '\f2db'; /* Add the Font Awesome CPU usage icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 156)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 157)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 158)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 159) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 160) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 161) .gpu-usage-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 162)   color: #e74c3c;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 163) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 164) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 165) .gpu-usage-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 166)   content: '\f03d'; /* Add the Font Awesome GPU usage icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 167)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 168)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 169)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 170) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 171) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 172) .cpu-frequency-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 173)   color: #8e44ad;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 174) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 175) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 176) .cpu-frequency-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 177)   content: '\f3fd'; /* Add the Font Awesome CPU frequency icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 178)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 179)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 180)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 181) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 182) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 183) .gpu-frequency-box {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 184)   color: #e67e22;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 185) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 186) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 187) .gpu-frequency-box::before {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 188)   content: '\f3fd'; /* Add the Font Awesome GPU frequency icon */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 189)   font-family: 'Font Awesome 5 Free';
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 190)   font-weight: 900;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 191)   margin-right: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 192) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 193) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 194) .grid-item-data {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 195)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 196)   align-items: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 197) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 198) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 199) .sortable-drag {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 200)   opacity: 0.5;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 201) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 202) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 203) .sortable-ghost {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 204)   background-color: rgba(179, 176, 176, 0.5);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 205)   border: 2px dashed #24c8db;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 206) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 207) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 208) .header {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 209)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 210)   align-items: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 211)   justify-content: flex-start;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 212)   padding: 16px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 213) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 214) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 215) .console-container {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 216)   background-color: rgba(0, 0, 0, 0.8);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 217)   border-radius: 4px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 218)   padding: 8px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 219)   margin-left: 16px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 220)   width: 60%; /* Adjust the width as needed */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 221)   height: 200px; /* Adjust the height as needed */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 222)   overflow-y: auto;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 223)   position: relative;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 224) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 225) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 226) .console-content {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 227)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 228)   flex-direction: column;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 229)   align-items: flex-start;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 230)   position: absolute;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 231)   bottom: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 232)   left: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 233)   right: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 234)   padding-left: 5px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 235)   padding-bottom: 5px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 236) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 237) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 238) .console-output {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 239)   font-size: 0.6rem;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 240)   line-height: 1; /* Reduce line spacing */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 241)   white-space: pre-wrap;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 242)   text-align: left;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 243)   margin-bottom: 2px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 244) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 245) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 246) .console-container::-webkit-scrollbar {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 247)   width: 6px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 248)   background-color: rgba(0, 0, 0, 0.1);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 249) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 250) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 251) .console-container::-webkit-scrollbar-thumb {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 252)   border-radius: 3px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 253)   background-color: rgba(255, 255, 255, 0.2);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 254) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 255) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 256) .console-container::-webkit-scrollbar-thumb:hover {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 257)   background-color: rgba(255, 255, 255, 0.4);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 258) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 259) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 260) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 261) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 262) /* template */
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 263) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 264) .container {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 265)   margin: 0;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 266)   padding-top: 1vh;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 267)   display: flex;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 268)   flex-direction: column;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 269)   justify-content: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 270)   text-align: center;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 271) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 272) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 273) a {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 274)   font-weight: 500;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 275)   color: #646cff;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 276)   text-decoration: inherit;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 277) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 278) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 279) a:hover {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 280)   color: #535bf2;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 281) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 282) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 283) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 284) input,
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 285) button {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 286)   border-radius: 8px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 287)   border: 1px solid transparent;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 288)   padding: 0.6em 1.2em;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 289)   font-size: 1em;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 290)   font-weight: 500;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 291)   font-family: inherit;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 292)   color: #0f0f0f;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 293)   background-color: #ffffff;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 294)   transition: border-color 0.25s;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 295)   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 296) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 297) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 298) button {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 299)   cursor: pointer;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 300) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 301) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 302) button:hover {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 303)   border-color: #396cd8;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 304) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 305) button:active {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 306)   border-color: #396cd8;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 307)   background-color: #e8e8e8;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 308) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 309) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 310) input,
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 311) button {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 312)   outline: none;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 313) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 314) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 315) #greet-input {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 316)   margin-right: 5px;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 317) }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 318) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 319) @media (prefers-color-scheme: dark) {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 320)   :root {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 321)     color: #f6f6f6;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 322)     background-color: #2f2f2f;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 323)   }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 324) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 325)   a:hover {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 326)     color: #24c8db;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 327)   }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 328) 
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 329)   input,
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 330)   button {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 331)     color: #ffffff;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 332)     background-color: #0f0f0f98;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 333)   }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 334)   button:active {
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 335)     background-color: #0f0f0f69;
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 336)   }
+^987971a2 src/styles.css (jtcurlin 2023-05-04 09:38:45 -0400 337) }

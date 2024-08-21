@@ -1,0 +1,252 @@
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   1) use std::{fs::File, io::Read, path::Path, collections::HashMap, process::Command, ffi::{c_void, CStr, CString}};
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   2) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   3) // use std::{
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   4) //     collections::HashMap,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   5) //     ffi::{c_void, CStr, CString},
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   6) //     mem::MaybeUninit,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   7) //     str::FromStr,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400   8) // };
+
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 200) //unfinished for sprint 2
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 201) pub(crate) fn network_info() -> crate::Result<NetworkHello> {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 202)     // // Use GetAdaptersInfo
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 203)     let mut out = NetworkHello {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 204)         interfaces: HashMap::new(),
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 205)     };
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 206) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 207) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 208)     let name = "water".to_string();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 209) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 210)     let mac_address = format!(
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 211)         "{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 212)         12, 22, 32, 42, 52, 62
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 213)         
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 214)     
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 215)     );
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 216) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 217)     let description = "descript".to_string();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 218) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 219)             let r#type = InterfaceType::WiFi;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 220) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 221)             let mut ip_addresses: Vec<String> = Vec::new();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 222)             ip_addresses.push("something".to_string());
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 223) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 224) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 225) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 226)             out.interfaces.insert(
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 227)                 mac_address,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 228)                 Interface {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 229)                     name,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 230)                     description,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 231)                     r#type,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 232)                     ip_addresses,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 233)                 },
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 234)             );
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 235) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 236)     Ok(out)
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 237) }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 238) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 239) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 240) pub(crate) fn network_statistics() -> crate::Result<Network> {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 241)     //turns out what is stored in the file is total data sent and recieved
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 242)     let mut file = File::open("/proc/net/dev")?;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 243)     let mut contents = String::new();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 244)     let mut out = Network {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 245)         interfaces: HashMap::new(),
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 246)     };
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 247)     let mut firstRx: u64 = 0;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 248)     let mut secondRx: u64 = 0;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 249)     let mut firstTx: u64 = 0;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 250)     let mut secondTx: u64 = 0;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 251) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 252)     file.read_to_string(&mut contents)?;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 253)         //.expect("Unable to open file");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 254) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 255)     //get the change in bytes over 1 second to get the network transmission at the current time
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 256) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 257)     for line in contents.lines() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 258)         //2nd column is recieved bytes, 10th column is transmitted bytes
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 259)         if line.contains("wlp5s0") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 260)             println!("{line}");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 261)             let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 262) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 263)             let mut count = 1;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 264)             for v in v.iter() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 265)                 if count == 2 {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 266)                     firstRx = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 267)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 268)                 if count == 10 {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 269)                     firstTx  = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 270)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 271)                 count += 1;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 272)             }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 273)             break;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 274)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 275)     }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 276) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 277)     let duration = std::time::Duration::from_secs(1);
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 278)     std::thread::sleep(duration);
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 279) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 280) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 281)     file.read_to_string(&mut contents)?;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 282)         //.expect("Unable to open file");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 283) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 284)         for line in contents.lines() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 285)             //2nd column is recieved bytes, 10th column is transmitted bytes
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 286)             if line.contains("wlp5s0") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 287)                 println!("{line}");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 288)                 let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 289)     
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 290)                 let mut count = 1;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 291)                 for v in v.iter() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 292)                     if count == 2 {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 293)                         secondRx = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 294)                     }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 295)                     if count == 10 {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 296)                         secondTx  = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 297)                     }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 298)                     count += 1;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 299)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 300)                 break;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 301)             }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 302)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 303) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 304)             //need to get the mac address for next sprint
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 305)              let mac_address = format!(
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 306)                 "{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 307)                 12, 22, 32, 42, 52, 62
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 308)             );
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 309) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 310)             let rx = firstRx - secondRx;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 311)             let tx = firstTx - secondTx;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 312) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 313)             out.interfaces
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 314)                 .insert(mac_address, InterfaceStatistics { rx, tx });
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 315)    
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 316) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 317)     Ok(out)
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 318) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 319) }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 320) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 321) pub(crate) fn gpu_info() -> crate::Result<GpuHello> {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 322)     let output = Command::new("glxinfo")
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 323)                            .arg("-B")
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 324)                             .output()
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 325)                             .expect("glxinfo command failed");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 326)     let info = output.stdout;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 327)     let mut card = " ";
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 328)     let mut ismb = false;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 329)     let mut total;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 330)     let mut avalible;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 331) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 332)     //println!("info[0]");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 333)     for line in info.lines() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 334)         if line.contains("OpenGl render string") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 335)             let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 336) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 337) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 338)             //card = v[3] + " " + v[4] + " " + v[5];
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 339)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 340)      
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 341)         if line.contains("Total avalible memory:") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 342)             let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 343) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 344)             for v in v.iter().rev() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 345)                 if v.contains("MB") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 346)                     ismb = true;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 347)                 } else if ismb == true {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 348)                     ismb = false;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 349)                     total = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 350)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 351)             }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 352) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 353)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 354) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 355)         if line.contains("currently available ") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 356)             let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 357) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 358)             for v in v.iter().rev() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 359)                 if v.contains("MB") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 360)                     ismb = true;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 361)                 } else if ismb == true {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 362)                     ismb = false;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 363)                     available = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 364)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 365)             }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 366) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 367)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 368) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 369)     }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 370) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 371) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 372)     let name = card.to_string();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 373)     let installed_vram = total;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 374) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 375)         return Ok(GpuHello { name, installed_vram});
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 376) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 377)     //need to add a conditional to detect gpu
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 378) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 379) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 380)     Err(crate::Error::NoGpuFound)
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 381) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 382) }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 383) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 384) pub(crate) fn gpu_statistics() -> crate::Result<Gpu> {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 385)     //run glxinfo, get 1- (current avalible / total vram)
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 386) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 387) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 388)     let output = Command::new("glxinfo")
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 389)                            .arg("-B")
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 390)                             .output()
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 391)                             .expect("glxinfo command failed");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 392)     let info = output.stdout;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 393)     let mut ismb = false;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 394)     let mut total;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 395)     let mut avalible;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 396) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 397)     //println!("info[0]");
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 398)     for line in info.lines() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 399)         
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 400)      
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 401)         if line.contains("Total avalible memory:") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 402)             let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 403) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 404)             for v in v.iter().rev() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 405)                 if v.contains("MB") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 406)                     ismb = true;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 407)                 } else if ismb == true {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 408)                     ismb = false;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 409)                     total = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 410)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 411)             }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 412) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 413)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 414) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 415)         if line.contains("currently available ") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 416)             let v: Vec<&str> = line.split(' ').collect();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 417) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 418)             for v in v.iter().rev() {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 419)                 if v.contains("MB") {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 420)                     ismb = true;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 421)                 } else if ismb == true {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 422)                     ismb = false;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 423)                     available = v.parse::<u64>().unwrap();
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 424)                 }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 425)             }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 426) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 427)         }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 428) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 429)     }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 430) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 431)   
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 432)     let usage = available / total;
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 433) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 434) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 435) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 436)         Ok(Gpu {
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 437)             current_vram_usage: usage as u64,
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 438)         })
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 439) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 440) }
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 441) 
+4d827e3f6 (CTucker01 2023-03-30 22:08:22 -0400 442) 

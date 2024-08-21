@@ -1,0 +1,174 @@
+$ git blame main.py --since=2.weeks| grep "ductrong5x5"
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400   6)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400  22) import winreg
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400  23) key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Cryptography")
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400  24) value = winreg.QueryValueEx(key, "MachineGuid")
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400  25) import mysql.connector
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400  80)         #apply_stylesheet(app, theme='dark_cyan.xml')
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 118)         self.ui.pushButton_2.clicked.connect(lambda: self.helpmenu())
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 119)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 121)         self.ui.Userid.setText(value[0])
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 127)
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 149)             self.ui.battery_chart.rpb_setLineColor((255, 109, 96))
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 150)             self.ui.battery_chart.rpb_setPieColor((255, 109, 96))
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 202)             mydb = mysql.connector.connect(
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 203)                 host='104.238.215.106',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 204)                 user='root',
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 205)                 password='Huffmand3coding',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 206)             )
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 207)             mycursor = mydb.cursor()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 208)             # mycursor.execute("SELECT * FROM machines.machines;")
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 209)             # myresult = mycursor.fetchall()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 215)             # table="SELECT * FROM cpu.`"+value[0]+"` ORDER BY timestamp DESC LIMIT 1;"
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 216)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 217)             table="SELECT * FROM machines.machines";
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 218)             mycursor.execute(table)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 219)             myresult = mycursor.fetchall()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 220)             for x in myresult:
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 221)                 if x[1] == value[0]:
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 222)                     # print()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 223)                     self.ui.machine11.setText(x[2])
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 224)                     self.ui.version.setText(x[3])
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 225)                     self.ui.Platform.setText(x[4])
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 226)                     self.ui.system.setText(platform.system())
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 227)                     self.ui.Processor.setText(platform.processor())
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 228)                     if x[6] =="True":
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 229)                         self.ui.battery_2.setText("YES")
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 230)                     else:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 231)                         self.ui.battery_2.setText("NO")
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 232)                     self.ui.bitness.setText(x[5])
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 240)         while True:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 241)             mydb = mysql.connector.connect(
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 242)                 host='104.238.215.106',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 243)                 user='root',
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 244)                 password='Huffmand3coding',
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 245)             )
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 246)             mycursor = mydb.cursor()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 247)             table="SELECT * FROM machines.machines";
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 248)             mycursor.execute(table)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 249)             myresult = mycursor.fetchall()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 250)             for x in myresult:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 251)                 if x[1] == value[0]:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 252)                     # print()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 253)                     self.ui.gpu_info.setText(x[11])
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 254)                     if (platform.system() == "Windows"):
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 255)                         pynvml.nvmlInit()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 256)                         handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 257)                         name = pynvml.nvmlDeviceGetName(handle)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 258)                         temperature = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 259)                         memory_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 260)                         memory_used = memory_info.used
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 261)                         memory_used = memory_used / (1024*1024)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 262)                         self.ui.gpu_info.setText(name)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 274)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 275)                         self.ui.widget_2.rpb_setMaximum(memory_info.total)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 276)                         self.ui.widget_2.rpb_setValue(memory_info.used)memory_info.used )/1024/1024/1024)+' GB'))
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 289)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 292)             mydb = mysql.connector.connect(
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 293)                 host='104.238.215.106',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 294)                 user='root',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 295)                 password='Huffmand3coding',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 296)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 297)             )
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 298)             mycursor = mydb.cursor()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 299)             table="SELECT * FROM battery.`"+value[0]+"`ORDER BY timestamp DESC LIMIT 1;"
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 300)             mycursor.execute(table)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 301)             myresult = mycursor.fetchone()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 302)              # = mycursor.fetchall()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 329)             if myresult[2] > 100:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 330)                 chartbatt=11
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 331)             else:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 332)                 chartbatt =myresult[2]
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 343)             sleep(1)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 344)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 348)             mydb = mysql.connector.connect(
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 349)                 host='104.238.215.106',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 350)                 user='root',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 351)                 password='Huffmand3coding',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 352)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 353)             )
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 354)             mycursor = mydb.cursor()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 355)             mycursor.execute("SELECT * FROM machines.machines;")
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 356)             myresult = mycursor.fetchall()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 357)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 358)             # print the results
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 359)             for x in myresult:
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 360)                 if x[1]== value[0]:
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 361)                     totalRam = x[10]/ (1024*1024*1024)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 362)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 364)             table="SELECT * FROM ram.`"+value[0]+"`ORDER BY timestamp DESC LIMIT 1;"
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 365)             mycursor.execute(table)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 366)             myresult = mycursor.fetchone()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 369)             ramUsed = myresult[2]
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 374)             availableRam = totalRam - ramUsed
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 376)             self.ui.available_ram.setText(str ("{:.1f}".format(availableRam) + ' GB'))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 377)             self.ui.ram_chart.rpb_setMaximum(totalRam)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 378)             self.ui.ram_chart.rpb_setValue(ramUsed)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 389)             table="SELECT * FROM cpu.`"+value[0]+"`ORDER BY timestamp DESC LIMIT 1;"
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 390)             mycursor.execute(table)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 391)             myresult = mycursor.fetchone()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 392)             cpuPer = myresult[2]
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 395)             self.ui.clockspeed.setText(str(myresult[3]))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 397)             self.ui.cpu_chart.rpb_setValue(myresult[2])
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 399)             self.ui.cpu_chart.rpb_setLineColor((152, 216, 170))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 408)             table="SELECT * FROM machines.machines";
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 409)             mycursor.execute(table)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 410)             myresult = mycursor.fetchall()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 411)             for x in myresult:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 412)                 if x[1] == value[0]:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 413)                     core=x[7]
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 414)                     self.ui.cpu_count.setText(str(core))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 415)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 416)                     cpuMaincore = x[8]
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 417)                     self.ui.cpu_main_core.setText(str(cpuMaincore))
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 428)             mydb = mysql.connector.connect(
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 429)                 host='104.238.215.106',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 430)                 user='root',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 431)                 password='Huffmand3coding',
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 432)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 433)             )
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 434)             mycursor = mydb.cursor()
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 435)             mycursor.execute("SELECT * FROM machines.machines;")
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 436)             myresult = mycursor.fetchall()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 508)             mydb = mysql.connector.connect(
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 509)                 host='104.238.215.106',
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 510)                 user='root',
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 511)                 password='Huffmand3coding',
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 512)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 513)             )
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 514)             mycursor = mydb.cursor()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 515)             table ="SELECT * FROM net.`"+value[0]+"` WHERE `"+value[0]+"` .timestamp = (SELECT max(timestamp) from net.`"+value[0]+"` ) order by description"
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 516)             mycursor.execute(table)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 517)             myresult = mycursor.fetchall()
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 518)             rowPosition1 = mycursor.rowcount
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 520)             row=0
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 521)             self.ui.tableWidget_2.setRowCount(rowPosition1)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 522)             for thing in myresult:
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 523)                 self.ui.tableWidget_2.setItem(row,0,QtWidgets.QTableWidgetItem(thing[1]))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 524)                 self.ui.tableWidget_2.setItem(row,1,QtWidgets.QTableWidgetItem(thing[2]))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 525)                 self.ui.tableWidget_2.setItem(row,2,QtWidgets.QTableWidgetItem(thing[3]))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 526)                 self.ui.tableWidget_2.setItem(row,3,QtWidgets.QTableWidgetItem(thing[4]))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 527)                 self.ui.tableWidget_2.setItem(row,4,QtWidgets.QTableWidgetItem(thing[5]))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 528)                 num6= round(thing[6]/1024/1024,1)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 529)                 self.ui.tableWidget_2.setItem(row,5,QtWidgets.QTableWidgetItem(str(num6)+' MB'))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 530)                 num7= round(thing[7]/1024/1024,1)
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 531)                 self.ui.tableWidget_2.setItem(row,6,QtWidgets.QTableWidgetItem(str(num7)+' MB'))
+0a5eaf574 (ductrong5x5       2023-05-02 01:55:27 -0400 532)                 row=row+1
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 546)             newWidth = 300
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 556)     def helpmenu(self):
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 557)         width = self.ui.Right_main_frame.width()
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 558)         if width==1:
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 559)             newWidth = 300
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 560)         else:
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 561)             newWidth = 1
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 562)         self.animation = QPropertyAnimation(self.ui.Right_main_frame,b"minimumWidth")
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 563)         self.animation.setDuration(250)
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 564)         self.animation.setStartValue(width)
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 565)         self.animation.setEndValue(newWidth)
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 566)         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 567)         self.animation.start()
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 568)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 569)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 573)
+3b91dee63 (ductrong5x5       2023-05-01 23:17:08 -0400 582)
+63a848c23 (ductrong5x5       2023-05-04 01:22:56 -0400 587)     window.show()

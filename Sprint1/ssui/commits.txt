@@ -1,0 +1,124 @@
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  1) from db import load_db, machine_entry, status_update
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  2) from flask import Flask, request, Response, url_for, redirect, render_template
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  3) import pandas as pd
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  4) 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  5) app = Flask(__name__) 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  6) 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  7) db = load_db() # Access to MySQL db
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  8) 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400  9) # Homepage
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 10) @app.route('/') 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 11) def home():
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 12)   return 'WATCHTOWER'
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 13) 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 14) # Receiving an HTTP payload
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 15) @app.route('/', methods=['POST'])
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 16) def sensor_receive():
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 17)   json = request.json
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 18)   if 'hello' in json.keys():
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 19)     machine_entry(json)
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 20)   else:
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 21)     status_update(json)
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 22)   print('RECEIVED FROM CLIENT: {}'.format(json))
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 23)   return f'{json}'
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 24) 
+00000000 (Not Committed Yet 2023-03-23 09:52:05 -0400 25) if __name__ == '__main__':
+86957e73 (Sam Sui           2023-03-08 22:37:16 -0500 26)   app.run(host='127.0.0.1', debug=True)
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  1) import requests 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  2) import json 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  3) 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  4) url = "http://127.0.0.1:5000/" # IP ran from server.py
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  5) 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  6) ### SAMPLE PAYLOADS ###
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  7) 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  8) windows = {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400  9)   "hello": {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 10)     "os_type": "Windows",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 11)     "version": {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 12)       "Semantic": [
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 13)         10,
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 14)         0,
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 15)         22621
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 16)       ]
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 17)     },
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 18)     "edition": "Windows 11 Professional",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 19)     "codename": 'null',
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 20)     "bitness": "X64"
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 21)   },
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 22)   "id": "2bbb0b82-9092-4dec-b40c-e96ffb1a9ee5",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 23)   "timestamp": "2023-02-26T19:12:46.121185400Z"
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 24) }
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 25) 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 26) linux = {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 27)   "hello": {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 28)     "os_type": "Ubuntu",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 29)     "version": {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 30)       "Custom": "22.04"
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 31)     },
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 32)     "edition": 'null',
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 33)     "codename": "jammy",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 34)     "bitness": "X64"
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 35)   },
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 36)   "id": "79d8e9ab-350a-4cd2-0183-799923d75d24",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 37)   "timestamp": "2023-02-26T19:16:02.479478032Z"
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 38) }
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 39) 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 40) status = {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 41)   "battery": {
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 42)     "has_battery": 'true',
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 43)     "percent": 93
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 44)   },
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 45)   "id": "2bbb0b82-9092-4dec-b40c-e96ffb1a9ee5",
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 46)   "timestamp": "2023-03-01T01:24:15.895800500Z"
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 47) }
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 48) 
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 49) # Runs a while loop for testing different preset json dumps
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 50) while True:
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 51)     print("1. Windows hello\n2. Linux hello\n3. Status Update\n")
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 52)     test = input()
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 53)     if (test == '1'):
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 54)         json = windows
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 55)     elif (test == '2'):
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 56)         json = linux
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 57)     elif (test == '3'):
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 58)         json = status
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 59)     print(f"SENDING PAYLOAD {json}")
+00000000 (Not Committed Yet 2023-03-23 09:52:21 -0400 60)     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+3046d821 (Sam Sui           2023-03-08 23:29:59 -0500 61)     r = requests.post(url, json=json, headers=headers)
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  1) import mysql.connector
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  2) from dotenv import load_dotenv
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  3) import os
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  4) 
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  5) def load_db():
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  6)     load_dotenv() # Loads (currently on local device) environment variables for security
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  7)     db = mysql.connector.connect(
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  8)         host=f"{os.getenv('host')}",
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400  9)         user=f"{os.getenv('user')}",
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 10)         password=f"{os.getenv('password')}"
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 11)     )
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 12)     return db
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 13) 
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 14) # Initialize data about machine in db
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 15) def machine_entry(json):
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 16)     pass
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 17) 
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 18) # If machine is already in db
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 19) def status_update(json):
+00000000 (Not Committed Yet 2023-03-23 09:52:33 -0400 20)     pass
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  1) # Backend & Database
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  2) 
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  3) **Languages**:
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  4) - Python
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  5) - SQL
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  6) 
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  7) **Technologies**:
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  8) - MySQL
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400  9) 
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 10) ## **sql.py**
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 11) 
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 12) Python script that is the fundamental idea behind our idea to:
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 13) 
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 14) - Connect to a remote-hosted MySQL database using the login (held on a local **.env** file)
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 15) - Create a *watchtower* database if there's not one there (always should be)
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 16) - Leave the Python interpreter running to accept SQL queries and print responses to the terminal
+00000000 (Not Committed Yet 2023-03-23 09:57:26 -0400 17) 

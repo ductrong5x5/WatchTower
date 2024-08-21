@@ -1,0 +1,6 @@
+f2f63db97 (Clayton Gilmer 2023-05-05 17:14:53 -0400 11) ArchitecturesInstallIn64BitMode=x64
+f2f63db97 (Clayton Gilmer 2023-05-05 17:14:53 -0400 12) OutputBaseFilename=WatchtowerSensorInstall
+f2f63db97 (Clayton Gilmer 2023-05-05 17:14:53 -0400 23) Filename: "{app}\sensor.exe"; Flags: nowait postinstall
+f2f63db97 (Clayton Gilmer 2023-05-05 17:14:53 -0400 24)
+f2f63db97 (Clayton Gilmer 2023-05-05 17:14:53 -0400 25) [Registry]
+f2f63db97 (Clayton Gilmer 2023-05-05 17:14:53 -0400 26) Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "WatchtowerSensor"; ValueData: """{group}\Watchtower Sensor.lnk"""; Flags: uninsdeletevalue

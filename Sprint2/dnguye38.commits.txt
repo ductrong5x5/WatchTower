@@ -1,0 +1,482 @@
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400   1) #All libraries will be used
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500   2) import sys
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500   3) import os
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400   4) import time
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500   5) from PySide2 import *
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400   6) import pandas as pd
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500   7) from qt_material import* 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500   8) from ui_interface import *
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500   9) from multiprocessing import cpu_count
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  10) from time import sleep
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  11) import platform
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  12) import pynvml
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  13) from psutil._common import bytes2human
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  14) import psutil
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  15) import PySide2extn
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  16) import datetime
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  17) import shutil
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  18) import pyopencl as cl
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  19) import wmi
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  20) from time import sleep
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  21) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  22) #Create Thread signal
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  23) class WorketSignals(QObject):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  24)     finished = Signal()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  25)     error = Signal(tuple)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  26)     result = Signal(object)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  27)     progress = Signal(int) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  28) #Create Thread worker
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  29) class Worker(object):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  30)     """docstring for worker"""
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  31)     def __init__(self, fn, *args, **kwargs):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  32)         super(Worker,self).__init__()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  33) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  34)         self.fn=fn
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  35)         self.args=args
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  36)         self.kwargs=kwargs
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  37)         self.signals = WorketSignals()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  38) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  39)         self.kwargs['progress_callback'] = self.signals.progress
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  40) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  41)     @Slot()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  42)     def run(self):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  43)         try:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  44)             result=self.fn(*self.args,**self.kwargs)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  45)         except:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  46)             traceback.print_exc()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  47)             exctype, value =sys.exc_info()[:2]
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  48)             self.signals.error.emit((exctype.value,traceback.format_exc()))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  49)         else:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  50)             self.signals.result.emit(result)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  51)         finally:
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  52) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  53)             self.signals.finished.emit()
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  54) #Class to run thread
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  55) class WorkerRunnable(QRunnable):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  56)     def __init__(self, worker):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  57)         super().__init__()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  58)         self.worker = worker
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  59) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  60)     def run(self):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  61)         self.worker.run()
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  62) def get_size(bytes):
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  63) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  64)     #Returns size of bytes in a nice format
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  65) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  66)     for unit in ['', 'K', 'M', 'G', 'T', 'P']:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  67)         if bytes < 1024:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  68)             return f"{bytes:.2f}{unit}B"
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400  69)         bytes /= 1024
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  70) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  71) class MainWindow (QMainWindow):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  72)     def __init__(self):
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  73)         #Setup structure for app
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  74)         QMainWindow.__init__(self)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  75)         self.ui = Ui_MainWindow()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  76)         self.ui.setupUi(self)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  77)         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  78)         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  79)         self.shadow = QGraphicsDropShadowEffect(self)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  80)         self.shadow.setBlurRadius(50)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  81)         self.shadow.setXOffset(0)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  82)         self.shadow.setYOffset(0)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  83)         self.shadow.setColor(QColor(0,92,157,550))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  84)         self.ui.centralwidget.setGraphicsEffect(self.shadow)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  85) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  86)         #Set Icon and title for app
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  87)         self.setWindowIcon(QtGui.QIcon(":/image/icons8-ecg-64.png"))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  88)         self.setWindowTitle("Monitoring Aplication")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  89) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  90)         #Make button (close, minimize,resize) works
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  91)         QSizeGrip(self.ui.size_grip)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  92)         self.ui.Minimize_window_button.clicked.connect(lambda:self.showMinimized())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  93)         self.ui.Close_window_button.clicked.connect(lambda:self.close())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  94)         self.ui.resize_window_button.clicked.connect(lambda:self.restore_or_maximize_window())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  95) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400  96)         #Make a connecting when click the button which will lead to a stackwidget
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  97)         self.ui.cpu_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.cpu_and_memory))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  98)         self.ui.battery_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.battery))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500  99)         self.ui.systeminformation_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.systeminfo))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 100)         self.ui.activity_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.activities))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 101)         self.ui.storage_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.storage))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 102)         self.ui.network_button_page.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.sensors))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 103) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 104)         #This help user move the app on the screen
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 105)         def moveWindow(e):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 106)             if self.isMaximized() == False:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 107)                 if e.buttons() == Qt.LeftButton:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 108)                     self.move(self.pos() + e.globalPos() - self.clickPosition)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 109)                     self.clickPosition = e.globalPos()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 110)                     e.accept()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 111)         self.ui.Header_frame.mouseMoveEvent = moveWindow
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 112) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 113)         #Makes the meno button do animation
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 114)         self.ui.open_menu_button.clicked.connect(lambda: self.slideLeftMenu())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 115)         self.threadpool=QThreadPool()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 116)         self.show()
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 117) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 118)         #Using psutil to get data and run worker
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 119)         user=psutil.users()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 120)         theuser=user[0]
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 121)         name=theuser.name
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 122) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 123)         self.ui.Userid.setText(name)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 124)         self.psutil_thread()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 125) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 126)         
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 127)         
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 128) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 129)     #Create worker for each part of data and then run worker
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 130)     def psutil_thread(self):
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 131)         #Worker for CPU and RAM, call cpu_ram function
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 132)         worker =Worker(self.cpu_ram)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 133)         worker.signals.result.connect(self.print_output)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 134)         worker.signals.finished.connect(self.thread_complete)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 135)         worker.signals.progress.connect(self.progress_fn)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 136)         runnable = WorkerRunnable(worker)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 137)         self.threadpool.start(runnable)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 138) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 139)         #Check if machine has battery
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 140)         battery_check = psutil.sensors_battery()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 141)         is_laptop =  battery_check is not None
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 142)         #Create worker if there is battery
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 143)         if is_laptop:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 144)             battery_worker=Worker(self.battery)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 145)             battery_worker.signals.result.connect(self.print_output)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 146)             battery_worker.signals.finished.connect(self.thread_complete)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 147)             battery_worker.signals.progress.connect(self.progress_fn)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 148)             runnable2 = WorkerRunnable(battery_worker)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 149)             self.threadpool.start(runnable2)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 150)         else:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 151)             self.ui.battery_status.setText("There is no battery")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 152)             self.ui.battery_plugged.setText("Is Plugged")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 153)             self.ui.battery_chart.rpb_setValue(100)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 154)             self.ui.battery_chart.rpb_setLineColor((0,255,0))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 155)             self.ui.battery_chart.rpb_setPieColor((45,74,83))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 156)             self.ui.battery_chart.rpb_setTextColor((0,0,0))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 157)         
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 158)         #Create worker for system information
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 159)         worker3 =Worker(self.systemin)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 160)         worker3.signals.result.connect(self.print_output)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 161)         worker3.signals.finished.connect(self.thread_complete)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 162)         worker3.signals.progress.connect(self.progress_fn)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 163)         runnable3 = WorkerRunnable(worker3)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 164)         self.threadpool.start(runnable3)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 165) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 166)         #Create worker for GPU information
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 167)         gpu_worker = Worker(self.gpu)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 168)         gpu_worker.signals.result.connect(self.print_output)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 169)         gpu_worker.signals.finished.connect(self.thread_complete)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 170)         gpu_worker.signals.progress.connect(self.progress_fn)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 171)         runnable4 = WorkerRunnable(gpu_worker)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 172)         self.threadpool.start(runnable4)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 173) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 174)         #Create worker for network information
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 175)         net_worker = Worker(self.network)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 176)         net_worker.signals.result.connect(self.print_output)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 177)         net_worker.signals.finished.connect(self.thread_complete)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 178)         net_worker.signals.progress.connect(self.progress_fn)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 179)         runnable5 = WorkerRunnable(net_worker)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 180)         self.threadpool.start(runnable5)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 181) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 182)         #Create worker for storage information
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 183)         storeage_worker = Worker(self.storage)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 184)         storeage_worker.signals.result.connect(self.print_output)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 185)         storeage_worker.signals.finished.connect(self.thread_complete)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 186)         storeage_worker.signals.progress.connect(self.progress_fn)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 187)         runnable6 = WorkerRunnable(storeage_worker)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 188)         self.threadpool.start(runnable6)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 189)        
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 190)     def print_output(self,s):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 191)         print(s)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 192)     def thread_complete(self):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 193)         print("THREAD COMPLETE!")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 194)     def progress_fn(self,n):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 195)         print("%d%% done" % n)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 196) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 197)     #most data from psutil is sec, this convert to HH:MM:SS
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 198)     def secs2hours(self,secs):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 199)         mm, ss = divmod(secs,60)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 200)         hh, mm = divmod(mm,60)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 201)         return "%d:%02d:%02d" % (hh,mm,ss)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 202) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 203)     #function to get system info
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 204)     def systemin(self, progress_callback):
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 205)         #put texts in UI
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 206)         self.ui.machine11.setText(platform.machine())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 207)         self.ui.version.setText(platform.version())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 208)         self.ui.Platform.setText(platform.platform())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 209)         self.ui.system.setText(platform.system())
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 210)         self.ui.Processor.setText(platform.processor())
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 211)         #run contiunously to get date and time
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 212)         while True:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 213)             time=datetime.datetime.now().strftime("%I:%M:%S %p")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 214)             self.ui.systime.setText(str(time))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 215) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 216)             date=datetime.datetime.now().strftime("%Y-%m-%d")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 217)             self.ui.sysdate.setText(str(date))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 218)          
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 219)             
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 220)             sleep(1)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 221) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 222) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 223)     #function to get gpu infomation            
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 224)     def gpu(self, progress_callback):
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 225)         import platform
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 226)         
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 227)         if (platform.system() == "Windows"):
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 228)         
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 229)             # check for NVIDIA GPU using NVIDIA-SMI
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 230)             pynvml.nvmlInit()
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 231)             handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 232)             name = pynvml.nvmlDeviceGetName(handle)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 233)             #run continously and put in UI
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 234)             while True:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 235)                 if "NVIDIA" in name:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 236)                     # print("NVIDIA GPU detected")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 237) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 238)                     memory_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 239)                     memory_used = memory_info.used
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 240)                     memory_used = memory_used / (1024*1024)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 241)                     # GET the temperature
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 242)                     temperature = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 243)                     
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 244)                     #put in UI (temp chart GPU)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 245)                     self.ui.gpu_info.setText(name)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 246)                     self.ui.widget_3.rpb_setMaximum(100)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 247)                     self.ui.widget_3.rpb_setValue(temperature)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 248)                     self.ui.widget_3.rpb_setBarStyle('Hybrid2')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 249)                     self.ui.widget_3.rpb_setLineColor((255,30,99))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 250)                     self.ui.widget_3.rpb_setPieColor((45,74,83))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 251)                     self.ui.widget_3.rpb_setTextColor((0,0,0))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 252)                     self.ui.widget_3.rpb_setInitialPos('North')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 253)                     self.ui.widget_3.rpb_setTextFormat('Value' )
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 254)                     self.ui.widget_3.rpb_setLineWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 255)                     self.ui.widget_3.rpb_setPathWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 256)                     self.ui.widget_3.rpb_setLineCap('RoundCap')
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 257)                     #put in UI ( memory char GPU)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 258)                     self.ui.widget_2.rpb_setMaximum(memory_info.total)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 259)                     self.ui.widget_2.rpb_setValue(memory_info.used)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 260)                     self.ui.widget_2.rpb_setBarStyle('Hybrid2')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 261)                     self.ui.widget_2.rpb_setLineColor((255,30,99))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 262)                     self.ui.widget_2.rpb_setPieColor((45,74,83))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 263)                     self.ui.widget_2.rpb_setTextColor((0,0,0))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 264)                     self.ui.widget_2.rpb_setInitialPos('North')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 265)                     self.ui.widget_2.rpb_setTextFormat('Percentage')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 266)                     self.ui.widget_2.rpb_setLineWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 267)                     self.ui.widget_2.rpb_setPathWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 268)                     self.ui.widget_2.rpb_setLineCap('RoundCap')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 269)                     self.ui.tolmem.setText(str("{:.2f}".format((memory_info.total )/1024/1024/1024)+' GB'))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 270)                     self.ui.freemem.setText(str("{:.2f}".format((memory_info.total - memory_info.used )/1024/1024/1024)+' GB'))
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 271)                 else:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 272)                     print("Non-NVIDIA GPU detected")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 273)                 sleep(1)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 274)      
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 275)     #THis function get data from battery 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 276)     def battery(self, progress_callback):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 277)         while True:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 278)             batt = psutil.sensors_battery()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 279)             if not hasattr(psutil,"sensors_battery"):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 280)                 self.ui.battery_status.setText("Not supported")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 281)             
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 282)             if batt is None:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 283)                 self.ui.battery_status.setText("No battery")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 284) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 285)             if batt.power_plugged:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 286)                 self.ui.battery_charge.setText(str(round(batt.percent,2))+"%")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 287)                 self.ui.battery_timeleft.setText("No idea")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 288)                 if batt.percent <100:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 289)                     self.ui.battery_status.setText("Charging")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 290)                 else:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 291)                     self.ui.battery_status.setText("Fully Charged")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 292) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 293)                 self.ui.battery_plugged.setText("Is plugged")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 294)             else:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 295)                 self.ui.battery_charge.setText(str(round(batt.percent,2))+"%")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 296)                 self.ui.battery_timeleft.setText(self.secs2hours(batt.secsleft))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 297)                 if batt.percent <100:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 298)                     self.ui.battery_status.setText("Not Charging")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 299)                 else:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 300)                     self.ui.battery_status.setText("Fully Charged")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 301)                     self.ui.battery_plugged.setText("Not Plugged ")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 302) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 303)             self.ui.battery_chart.rpb_setMaximum(100)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 304)             self.ui.battery_chart.rpb_setValue(batt.percent)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 305)             self.ui.battery_chart.rpb_setBarStyle('Hybrid2')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 306)             self.ui.battery_chart.rpb_setLineColor((255,30,99))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 307)             self.ui.battery_chart.rpb_setPieColor((45,74,83))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 308)             self.ui.battery_chart.rpb_setTextColor((0,0,0))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 309)             self.ui.battery_chart.rpb_setInitialPos('North')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 310)             self.ui.battery_chart.rpb_setTextFormat('Percentage')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 311)             self.ui.battery_chart.rpb_setLineWidth(15)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 312)             self.ui.battery_chart.rpb_setPathWidth(15)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 313)             self.ui.battery_chart.rpb_setLineCap('RoundCap')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 314)             sleep(0.1)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 315) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 316)     #This get CPU_ram data         
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 317)     def cpu_ram(self, progress_callback):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 318)         while True:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 319)             totalRam = 1.0
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 320)             totalRam = psutil.virtual_memory() [0] *totalRam
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 321)             totalRam = totalRam / (1024*1024*1024)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 322)             self.ui.total_ram.setText(str("{:.2f}".format(totalRam)+' GB'))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 323) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 324)             availableRam=1.0
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 325)             availableRam= psutil.virtual_memory()[1] *availableRam
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 326)             availableRam= availableRam/ (1024*1024*1024)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 327)             self.ui.available_ram.setText(str ("{:.1f}".format(availableRam) + ' GB'))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 328) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 329)             ramUsed =1.0
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 330)             ramUsed = psutil.virtual_memory() [3] + ramUsed
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 331)             ramUsed = ramUsed /  (1024*1024*1024)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 332)             self.ui.ram_used.setText(str("{:.1f}".format(ramUsed)+' GB'))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 333) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 334)             core=cpu_count()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 335)             self.ui.cpu_count.setText(str(core))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 336) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 337)             cpuPer = psutil.cpu_percent()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 338)             self.ui.cpu_per.setText(str(cpuPer) + " %")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 339) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 340)             cpuMaincore = psutil.cpu_count(logical = False)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 341)             self.ui.cpu_main_core.setText(str(cpuMaincore))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 342) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 343) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 344)             self.ui.cpu_chart.rpb_setMaximum(100)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 345)             self.ui.cpu_chart.rpb_setValue(cpuPer)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 346)             self.ui.cpu_chart.rpb_setBarStyle('Hybrid2')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 347)             self.ui.cpu_chart.rpb_setLineColor((238,118,0))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 348)             self.ui.cpu_chart.rpb_setTextColor((0,0,0))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 349)             self.ui.cpu_chart.rpb_setInitialPos('North')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 350)             self.ui.cpu_chart.rpb_setTextFormat('Percentage')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 351)             self.ui.cpu_chart.rpb_setTextFont('Arial')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 352)             self.ui.cpu_chart.rpb_setLineWidth(15)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 353)             self.ui.cpu_chart.rpb_setPathWidth(15)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 354)             self.ui.cpu_chart.rpb_setLineCap('RoundCap')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 355) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 356) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 357) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 358)             self.ui.ram_chart.rpb_setMaximum(totalRam)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 359)             self.ui.ram_chart.rpb_setValue(ramUsed)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 360)             self.ui.ram_chart.rpb_setBarStyle('Hybrid2')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 361)             self.ui.ram_chart.rpb_setLineColor((238,118,0))     
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 362)             self.ui.ram_chart.rpb_setTextColor((0,0,0)) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 363)             self.ui.ram_chart.rpb_setInitialPos('North')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 364)             self.ui.ram_chart.rpb_setTextFormat('Percentage')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 365)             self.ui.ram_chart.rpb_setTextFont('Arial')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 366)             self.ui.ram_chart.rpb_setLineWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 367)             self.ui.ram_chart.rpb_setPathWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 368)             self.ui.ram_chart.rpb_setLineCap('RoundCap')
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 369)             sleep(0.5)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 370)     # This get storage info
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 371)     def storage(self, progress_callback):
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 372)         while True:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 373)             Total = 0
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 374)             Used = 0
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 375)             self.ui.tableWidget.setRowCount(0)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 376)             for part in psutil.disk_partitions(all=False):
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 377)                 rowPosition = self.ui.tableWidget.rowCount()
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 378)                 self.ui.tableWidget.insertRow(rowPosition)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 379)                 if os.name == 'nt':
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 380)                     if 'cdrom' in part.opts or part.fstype == '':
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 381)                         # skip cd-rom drives with no disk in it; they may raise
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 382)                         # ENOENT, pop-up a Windows GUI error for a non-ready
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 383)                         # partition or just hang.
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 384)                         continue
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 385)                 usage = psutil.disk_usage(part.mountpoint)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 386)                 self.create_table_widget(rowPosition,0,part.device,"tableWidget")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 387)                 self.create_table_widget(rowPosition,1,bytes2human(usage.total),"tableWidget")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 388)                 self.create_table_widget(rowPosition,2,bytes2human(usage.used),"tableWidget")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 389)                 self.create_table_widget(rowPosition,3,bytes2human(usage.free),"tableWidget")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 390)                 self.create_table_widget(rowPosition,4,str(usage.percent),"tableWidget")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 391)                 self.create_table_widget(rowPosition,5,part.fstype,"tableWidget")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 392)                 int_value_total = round(int(bytes2human(usage.total).replace('.', '').replace('G', ''))/10)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 393)                 int_value_used  = round(int(bytes2human(usage.used).replace('.', '').replace('G', ''))/10)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 394)                 Total += int_value_total
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 395)                 Used += int_value_used
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 396) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 397)             self.ui.storagechart.rpb_setMaximum(Total)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 398)             self.ui.storagechart.rpb_setValue(Used)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 399)             self.ui.storagechart.rpb_setBarStyle('Hybrid2')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 400)             self.ui.storagechart.rpb_setLineColor((238,118,0))     
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 401)             self.ui.storagechart.rpb_setTextColor((0,0,0)) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 402)             self.ui.storagechart.rpb_setInitialPos('North')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 403)             self.ui.storagechart.rpb_setTextFormat('Percentage')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 404)             self.ui.storagechart.rpb_setTextFont('Arial')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 405)             self.ui.storagechart.rpb_setLineWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 406)             self.ui.storagechart.rpb_setPathWidth(15)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 407)             self.ui.storagechart.rpb_setLineCap('RoundCap')
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 408)             sleep(1)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 409) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 410)     #This get network info
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 411)     def network(self, progress_callback):
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 412)         io = psutil.net_io_counters(pernic=True)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 413)         row2=0
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 414)         while True:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 415)                 # sleep for `UPDATE_DELAY` seconds
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 416)                 # time.sleep(1)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 417)                 # get the network I/O stats again per interface 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 418)             data=[]
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 419)             io_2 = psutil.net_io_counters(pernic=True)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 420)             self.ui.networktable.setRowCount(0)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 421)             for iface, iface_io in io.items():
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 422)                 # new - old stats gets us the speed
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 423)                 rowPosition = self.ui.networktable.rowCount()
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 424)                 self.ui.networktable.insertRow(rowPosition)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 425) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 426)                 upload_speed, download_speed = io_2[iface].bytes_sent - iface_io.bytes_sent, io_2[iface].bytes_recv - iface_io.bytes_recv
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 427)                 data.append({
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 428)                     "iface": iface, 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 429)                     "Download": get_size(io_2[iface].bytes_recv),
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 430)                     "Upload": get_size(io_2[iface].bytes_sent),
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 431)                     "Upload Speed": f"{get_size(upload_speed / 1)}/s",
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 432)                     "Download Speed": f"{get_size(download_speed / 1)}/s",
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 433)                 })
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 434)                 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 435)                 self.create_table_widget(rowPosition,0,iface,"networktable")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 436)                 self.create_table_widget(rowPosition,1,get_size(io_2[iface].bytes_recv),"networktable")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 437)                 self.create_table_widget(rowPosition,2,get_size(io_2[iface].bytes_sent),"networktable")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 438)                 self.create_table_widget(rowPosition,3,f"{get_size(upload_speed / 1)}/s","networktable")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 439)                 self.create_table_widget(rowPosition,4,f"{get_size(download_speed / 1)}/s","networktable")
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 440) 
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 441)             # update the I/O stats for the next iteration
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 442)             io = io_2
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 443)             sleep(1)
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 444)     #This auto create table widget based on provided data
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 445)     def create_table_widget(self,rowPosition,columnPosition,text,tableName):
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 446)         table=QTableWidgetItem()
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 447)         getattr(self.ui, tableName).setItem(rowPosition,columnPosition,table)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 448)         table=getattr(self.ui, tableName).item(rowPosition,columnPosition)
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 449)         table.setText(text);
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 450)     #animation for menu click button
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 451)     def slideLeftMenu(self):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 452)         width = self.ui.Left_main_frame.width()
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 453)         if width==50:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 454)             newWidth = 250
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 455)         else:
+c36025048 (ductrong5x5 2023-03-30 18:06:42 -0400 456)             newWidth = 50
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 457)         self.animation = QPropertyAnimation(self.ui.Left_main_frame,b"minimumWidth")
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 458)         self.animation.setDuration(250)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 459)         self.animation.setStartValue(width)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 460)         self.animation.setEndValue(newWidth)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 461)         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 462)         self.animation.start()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 463) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 464)     #
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 465)     def mousePressEvent(self,event):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 466)         self.clickPosition=event.globalPos()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 467) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 468)     #Resize app
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 469)     def restore_or_maximize_window(self):
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 470)         if self.isMaximized():
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 471)             self.showNormal()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 472)             self.ui.resize_window_button.setIcon(QtGui.QIcon(u":/image/icons8-restore-down-16.png"))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 473)         else:
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 474)             self.showMaximized()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 475)             self.ui.resize_window_button.setIcon(QtGui.QIcon(u":/image/icons8-restore-down-16.png"))
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 476) 
+4a5d16de6 (ductrong5x5 2023-03-30 18:48:15 -0400 477) #Run app
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 478) 
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 479) if __name__ == "__main__":
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 480)     app = QApplication(sys.argv)
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 481)     window = MainWindow()
+c2c87038f (ductrong5x5 2023-03-06 23:59:16 -0500 482)     sys.exit(app.exec_())

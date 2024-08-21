@@ -1,0 +1,224 @@
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   1) .w-layout-grid {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   2)     grid-row-gap: 16px; grid-column-gap: 16px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   3)     grid-template-rows: auto auto; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   4)     grid-template-columns: 1fr lfr; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   5)     grid-auto-columns: 1fr;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   6)     display: grid;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   7) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   8) body {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400   9)     color: #1a1b1f;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  10)     font-family: Montserrat, sans-serif;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  11)     font-size: 16px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  12)     font-weight: 400; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  13)     line-height: 28px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  14) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  15) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  16) h2 {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  17)     margin-top: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  18)     margin-bottom: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  19)     font-size: 36px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  20)     font-weight: 400;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  21)     line-height: 50px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  22) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  23) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  24) p {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  25)     margin-bottom: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  26) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  27) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  28) a {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  29)     color:#1a1b1f;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  30)     text-decoration:underline;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  31)     transition: opcity .2s;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  32)     display: block;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  33) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  34) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  35) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  36) a:hover {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  37)     color: #32343a
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  38) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  39) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  40) a:active {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  41)     color: #43464d
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  42) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  43) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  44) img {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  45)     display: block;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  46)     padding-left: 30px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  47) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  48) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  49) .divider {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  50)     height: 1px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  51)     background-color: #eee;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  52) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  53) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  54) .container {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  55)     width: 100%;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  56)     max-width: 1140px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  57)     margin-left: auto;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  58)     margin-right: auto;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  59) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  60) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  61) .paragraph-bigger {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  62)     opacity: 1;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  63)     margin-bottom: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  64)     font-size: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  65)     font-weight: 400;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  66)     line-height: 34px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  67) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  68) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  69) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  70) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  71) .button {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  72)     color: #fff;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  73)     letter-spacing: 2px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  74)     text-transform: uppercase; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  75)     background-color: #1a1b1f; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  76)     border-radius: 0;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  77)     padding: 12px 25px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  78)     font-size: 12px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  79)     line-height: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  80)     text-decoration: none; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  81)     transition: background-color;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  82)     justify-content: center;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  83) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  84) .button:hover {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  85)     color: #fff;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  86)     background-color: #32343a;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  87) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  88) .button:active {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  89)     background-color: #43464d;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  90) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  91) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  92) .button.cc-jumbo-button {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  93)     padding: 16px 35px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  94)     font-size: 14px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  95)     line-height: 26px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  96)     border-style: double;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  97) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  98) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  99) .button.w-inline-block {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 100)     text-align: center;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 101) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 102) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 103) .paragraph-light {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 104)     opacity: .6;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 105) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 106) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 107) .heading-jumbo {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 108)     text-transform: none;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 109)     margin-top: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 110)     margin-bottom: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 111)     font-size: 84px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 112)     line-height: 80px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 113)     text-decoration: double;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 114)     letter-spacing: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 115) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 116) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 117) .intro-header {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 118)     height: 620px; 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 119)     width: 100%;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 120)     color: #fff;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 121)     background-color: #f4f4f4;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 122)     background-image: url("./watchtowerPhotoForReal.png");
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 123)     background-position: 0 0;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 124)     background-size: cover;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 125)     justify-content: center;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 126)     align-items: center;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 127)     padding-top: 300px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 128)     display: flex;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 129)     font
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 130) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 131) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 132) .intro-content {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 133)     width: 70%;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 134)     max-width: 1140px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 135)     text-align: center;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 136) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 137) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 138) .intro-content.cc-homepage {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 139)     margin-bottom: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 140) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 141) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 142) .motto-wrap {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 143)     width: 80%;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 144)     text-align: center; margin-bottom: 85px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 145)     margin-left: auto;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 146)     margin-right: auto;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 147) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 148) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 149) .home-content-wrap {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 150)     margin-bottom: 30px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 151) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 152) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 153) .section-heading {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 154)     margin-top: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 155)     margin-bottom: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 156)     font-weight: 400;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 157) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 158) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 159) .home-content-wrap {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 160)     margin-top: 80px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 161)     margin-bottom: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 162) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 163) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 164) .home-section-wrap {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 165)     margin-bottom: 30px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 166) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 167) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 168) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 169) .label {
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 170)     letter-spacing: 1px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 171)     text-transform: uppercase;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 172)     margin-bottom: 10px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 173)     font-size: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 174)     font-weight: 500;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 175)     line-height: 20px;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 176)     opacity: .6;
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 177) }
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 178) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 179) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 180) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 181) 
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 182) 
+
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  1) <DOCTYPE! html>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  2)     <html>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  3)         <head>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  4)             <title>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  5)                 Watchtower
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400  6)             </title>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 60)         </head>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 61)         <body>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 62)             <div class = "section cc-home-wrap">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 63)                 <div class = "intro-header">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 64)                     <div class = " intro-content cc-homepage">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 65)                         <div class = "heading-jumbo">WatchTower</div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 66)                         <div class = "paragraph-bigger">System Monitoring Application<br></div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 67)                     
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 68)                     <a href="index.php" class = "button cc-jumbo-button ">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 69)                         <div>Data</div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 70)                     </a>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 71)                 </div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 72)                 </div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 73)             </div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 74)             <div class = "container">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 75)                 <div class = "motto-wrap"></div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 76)                 <div class = "divider"></div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 77)                 <div class = "home-content-wrap">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 78)                     <div class = "home-section-wrap">
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 79)                         <div class = "label cc-light">About</div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 80)                         <h2 class = "section-heading">Who we are</h2>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 81)                         <p class = "paragraph-light">  We are a group of computer science majors at UTK trying to survive CS340! In our gr
+oup we have 2 Claytons, a Duc, Sam, Paul, and Ryan.  
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 82)                             We have created a system monitoring application that will have a program that will monitor the specs of machin
+es running Linux, Mac OS, & Windows and send the information to a mySQL database to be fetched by this website!
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 83)                         </p>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 84)                     </div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 85)                     <a class = "button w-inline-block" onclick="next()">Next</a>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 86)                     <br>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 87)                     <div><img  id = "slide" src = "./ryan_clayton.jpg" alt=""></div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 88)                 </div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 89)             </div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 90)             <div class = "divider"></div>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 91)         </body>
+8313fbb6f (RJFranqui 2023-04-27 08:18:38 -0400 92)     </html>

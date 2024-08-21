@@ -1,0 +1,210 @@
+4fee8f93d watchtower-sensor/Cargo.toml (Clayton Gilmer 2023-04-05 20:14:05 -0400  6) [[bin]]
+4fee8f93d watchtower-sensor/Cargo.toml (Clayton Gilmer 2023-04-05 20:14:05 -0400  7) name = "default"
+4fee8f93d watchtower-sensor/Cargo.toml (Clayton Gilmer 2023-04-05 20:14:05 -0400  8)
+12bd677dc watchtower-sensor/Cargo.toml (Clayton Gilmer 2023-04-11 10:52:52 -0400 18) sysinfo = {version = "0.28.4", features = ["serde"]}
+12bd677dc watchtower-sensor/Cargo.toml (Clayton Gilmer 2023-04-11 10:52:52 -0400 27)     "Win32_Storage_FileSystem",
+4fee8f93d watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400  3) use watchtower_sensor::message::Message;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  5) mod http {
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  6)     use serde::Serialize;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  7)     use watchtower_sensor::Result;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  8)
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  9)     pub fn post_json(path: &str, data: impl Serialize) -> Result<()> {
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 10)         loop {
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 11)             match ureq::post(path).send_json(&data) {
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 12)                 Ok(_) => break,
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 13)                 Err(_) => std::thread::sleep(std::time::Duration::from_secs(10)),
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 14)             };
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 15)         }
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 16)
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 17)         Ok(())
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 18)     }
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 19) }
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 20)
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 42)     http::post_json(&hello_string, hello)?;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 47)         http::post_json(&checkin_string, Message::battery()?)?;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 48)         http::post_json(&checkin_string, Message::cpu()?)?;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 49)         http::post_json(&checkin_string, Message::ram()?)?;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 50)         http::post_json(&checkin_string, Message::net()?)?;
+12bd677dc watchtower-sensor/src/bin/default.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 51)         http::post_json(&checkin_string, Message::gpu()?)?;
+4fee8f93d watchtower-sensor/src/bin/scratch.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 1) use watchtower_sensor::message::Message;
+4fee8f93d watchtower-sensor/src/bin/scratch.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 2)
+4fee8f93d watchtower-sensor/src/bin/scratch.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 3) fn main() {
+a2085e37c watchtower-sensor/src/bin/scratch.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 4)     println!("{}", serde_json::to_string_pretty(&Message::gpu().unwrap()).unwrap())
+4fee8f93d watchtower-sensor/src/bin/scratch.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 5) }
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 1) pub mod error;
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 2) pub mod message;
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 3) pub mod sys;
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 4) pub mod types;
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 5)
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 6) pub use error::Error;
+4fee8f93d watchtower-sensor/src/lib.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 7) pub type Result<T, E = Error> = ::std::result::Result<T, E>;
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  8)         battery::Battery, cpu::Cpu, gpu::Gpu, hello::Hello, net::Network, ram::Ram, disk::Disk, MessageType,
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 27) #[derive(Debug, Serialize)]
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 28) pub struct Message {
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 36)     pub fn hello() -> crate::Result<Message> {
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 43)     pub fn battery() -> crate::Result<Message> {
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 50)     pub fn cpu() -> crate::Result<Message> {
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 57)     pub fn ram() -> crate::Result<Message> {
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 64)     pub fn net() -> crate::Result<Message> {
+4fee8f93d watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 71)     pub fn gpu() -> crate::Result<Message> {
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 77)
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 78)     pub fn disk() -> crate::Result<Message> {
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 79)         Ok(
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 80)             Message {
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 81)                 variant: MessageType::Disk(Disk::collect()?),
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 82)                 header: MessageHeader::new()?,
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 83)             }
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 84)         )
+12bd677dc watchtower-sensor/src/message.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 85)     }
+12bd677dc watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  13)         Foundation::{ERROR_BUFFER_OVERFLOW, ERROR_SUCCESS, MAX_PATH},
+12bd677dc watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  28)         }, Storage::FileSystem::{FindFirstVolumeW, FindFirstVolumeA, FindVolumeClose, GetVolumePathNamesForVolumeNameA},
+12bd677dc watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  35)     net::{Interface, InterfaceStatistics, InterfaceType, Network, NetworkHello}, disk::{DiskHello, Disk},
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 137) #[allow(non_camel_case_types, non_snake_case)]
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 138) #[derive(Debug, Deserialize)]
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 139) struct Win32_Processor {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 140)     Name: String,
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 141)     MaxClockSpeed: u32,
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 142)     CurrentClockSpeed: u32,
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 143) }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 144)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 145) pub(crate) fn cpu_name() -> crate::Result<String> {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 146)     let com = COMLibrary::new()?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 147)     let wmi = WMIConnection::new(com)?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 148)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 149)     let results: Vec<Win32_Processor> = wmi.query()?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 150)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 151)     if !results.is_empty() {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 152)         return Ok(results[0].Name.clone());
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 153)     } else {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 154)         panic!();
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 155)     }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 156) }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 157)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 158) pub(crate) fn cpu_clock_speed() -> crate::Result<u32> {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 159)     let com = COMLibrary::new()?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 160)     let wmi = WMIConnection::new(com)?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 161)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 162)     let results: Vec<Win32_Processor> = wmi.query()?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 163)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 164)     if !results.is_empty() {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 165)         return Ok(results[0].MaxClockSpeed);
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 166)     } else {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 167)         panic!();
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 168)     }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 169) }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 170)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 171) pub(crate) fn cpu_current_clock_speed() -> crate::Result<u32> {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 172)     let com = COMLibrary::new()?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 173)     let wmi = WMIConnection::new(com)?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 174)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 175)     let results: Vec<Win32_Processor> = wmi.query()?;
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 176)
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 177)     if !results.is_empty() {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 178)         return Ok(results[0].CurrentClockSpeed);
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 179)     } else {
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 180)         panic!();
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 181)     }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 182) }
+4fee8f93d watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 183)
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 184) pub(crate) fn cpu_current_temperature() -> crate::Result<Option<f32>> {
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 185)     Ok(None)
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 186) }
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 187)
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 358)             max_frequency: None,
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 394)             current_frequency: None,
+a2085e37c watchtower-sensor/src/sys/windows.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 395)             current_temperature: None,
+4fee8f93d watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400  7)     name: String,
+a2085e37c watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 10)     clock_speed: u32, // MHz
+4fee8f93d watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 16)             name: sys::cpu_name()?,
+4fee8f93d watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 19)             clock_speed: sys::cpu_clock_speed()?,
+4fee8f93d watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 27)     current_clock_speed: u32,
+a2085e37c watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 28)     current_temperature: Option<f32>, // celsius
+4fee8f93d watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-05 20:14:05 -0400 35)             current_clock_speed: sys::cpu_current_clock_speed()?,
+a2085e37c watchtower-sensor/src/types/cpu.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 36)             current_temperature: sys::cpu_current_temperature()?,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  1) use std::collections::HashMap;
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  2)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  3) use serde::{Deserialize, Serialize};
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  4) use sysinfo::{DiskExt, DiskType, SystemExt};
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  5)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  6) #[derive(Debug, Serialize)]
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  7) pub(crate) struct DiskInfo {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  8)     r#type: DiskType,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400  9)     capacity: u64,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 10)     usage: u64,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 11)     is_removable: bool,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 12) }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 13)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 14) #[derive(Debug, Serialize)]
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 15) pub(crate) struct DiskHello {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 16)     pub(crate) disks: HashMap<String, DiskInfo>,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 17) }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 18)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 19) impl DiskHello {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 20)     pub(crate) fn collect() -> crate::Result<Self> {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 21)         let mut out = Self {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 22)             disks: HashMap::new(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 23)         };
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 24)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 25)         let mut query = sysinfo::System::new_all();
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 26)         query.refresh_disks();
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 27)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 28)         for disk in query.disks() {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 29)             let info = DiskInfo {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 30)                 r#type: disk.type_(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 31)                 capacity: disk.total_space(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 32)                 usage: disk.total_space() - disk.available_space(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 33)                 is_removable: disk.is_removable(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 34)             };
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 35)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 36)             out.disks
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 37)                 .insert(disk.name().to_string_lossy().to_string(), info);
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 38)         }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 39)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 40)         Ok(out)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 41)     }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 42) }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 43)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 44) #[derive(Debug, Deserialize, Serialize)]
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 45) pub(crate) struct DiskStatistics {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 46)     usage: u64,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 47) }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 48)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 49) #[derive(Debug, Deserialize, Serialize)]
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 50) pub(crate) struct Disk {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 51)     disks: HashMap<String, DiskStatistics>,
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 52) }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 53)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 54) impl Disk {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 55)     pub(crate) fn collect() -> crate::Result<Self> {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 56)         let mut out = Self {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 57)             disks: HashMap::new(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 58)         };
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 59)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 60)         let mut query = sysinfo::System::new_all();
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 61)         query.refresh_disks();
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 62)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 63)         for disk in query.disks() {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 64)             let statistics = DiskStatistics {
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 65)                 usage: disk.total_space() - disk.available_space(),
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 66)             };
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 67)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 68)             out.disks
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 69)                 .insert(disk.name().to_string_lossy().to_string(), statistics);
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 70)         }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 71)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 72)         Ok(out)
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 73)     }
+12bd677dc watchtower-sensor/src/types/disk.rs (Clayton Gilmer    2023-04-11 10:52:52 -0400 74) }
+a2085e37c watchtower-sensor/src/types/gpu.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400  9)     pub(crate) max_frequency: Option<u32>, // MHz
+a2085e37c watchtower-sensor/src/types/gpu.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 21)     pub(crate) current_frequency: Option<u32>,
+a2085e37c watchtower-sensor/src/types/gpu.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 22)     pub(crate) current_temperature: Option<f32>,
+12bd677dc watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  3) use super::{gpu::GpuHello, net::NetworkHello, disk::DiskHello};
+12bd677dc watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  6) #[derive(Debug, Serialize)]
+a2085e37c watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-04-12 12:40:49 -0400 15)     #[serde(rename = "disk")]
+12bd677dc watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 16)     disk: DiskHello,
+12bd677dc watchtower-sensor/src/types/hello.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 28)             disk: DiskHello::collect()?,
+12bd677dc watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  1) use serde::Serialize;
+12bd677dc watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400  9) pub(crate) mod disk;
+12bd677dc watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 11) #[derive(Debug, Serialize)]
+12bd677dc watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 25)     #[serde(rename = "disk")]
+12bd677dc watchtower-sensor/src/types/mod.rs (Clayton Gilmer 2023-04-11 10:52:52 -0400 26)     Disk(disk::Disk)
